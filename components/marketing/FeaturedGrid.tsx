@@ -5,14 +5,19 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import { PROPERTIES } from "@/lib/data/properties";
 import { formatBDTWord } from "@/lib/utils/formatCurrency";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarImage,
+} from "@/components/ui/avatar";
 
-// Real avatar photos from pravatar — deterministic seeds so they never change
 const AVATARS = [
-  "https://i.pravatar.cc/48?img=47",
-  "https://i.pravatar.cc/48?img=32",
-  "https://i.pravatar.cc/48?img=58",
-  "https://i.pravatar.cc/48?img=12",
-  "https://i.pravatar.cc/48?img=25",
+  { src: "https://i.pravatar.cc/48?img=47", fallback: "RA" },
+  { src: "https://i.pravatar.cc/48?img=32", fallback: "SM" },
+  { src: "https://i.pravatar.cc/48?img=58", fallback: "AK" },
+  { src: "https://i.pravatar.cc/48?img=12", fallback: "MH" },
+  { src: "https://i.pravatar.cc/48?img=25", fallback: "TN" },
 ];
 
 export default function FeaturedGrid() {
@@ -90,40 +95,20 @@ export default function FeaturedGrid() {
                 Trusted Nationwide
               </span>
 
-              {/* Real Photo Avatar Stack */}
-              <div className="flex items-center mb-5" style={{ marginLeft: "0" }}>
-                {AVATARS.map((src, i) => (
-                  <img
+              {/* Avatar Stack */}
+              <AvatarGroup className="mb-5">
+                {AVATARS.map((av, i) => (
+                  <Avatar
                     key={i}
-                    src={src}
-                    alt={`Client ${i + 1}`}
-                    width={34}
-                    height={34}
-                    className="rounded-full border-2 border-[#211E1A] object-cover flex-shrink-0"
-                    style={{
-                      width: 34,
-                      height: 34,
-                      marginLeft: i === 0 ? 0 : -10,
-                      position: "relative",
-                      zIndex: AVATARS.length - i,
-                    }}
-                  />
+                    className="h-8 w-8 border-2 border-[#211E1A]"
+                  >
+                    <AvatarImage src={av.src} alt={av.fallback} />
+                    <AvatarFallback className="text-[9px] bg-white/15 text-white">
+                      {av.fallback}
+                    </AvatarFallback>
+                  </Avatar>
                 ))}
-                {/* Overflow badge */}
-                <div
-                  className="rounded-full border-2 border-[#211E1A] bg-white/10 flex items-center justify-center text-white/50 font-extrabold flex-shrink-0"
-                  style={{
-                    width: 34,
-                    height: 34,
-                    marginLeft: -10,
-                    fontSize: 9,
-                    position: "relative",
-                    zIndex: 0,
-                  }}
-                >
-                  +
-                </div>
-              </div>
+              </AvatarGroup>
 
               {/* Trust Number */}
               <div className="mb-2">
