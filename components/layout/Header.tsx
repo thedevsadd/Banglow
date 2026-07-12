@@ -47,17 +47,23 @@ export default function Header() {
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo - Text removed, size scaled */}
+          {/* Logo - Text removed, size scaled, dynamically inverted when transparent */}
           <Link href="/" className="flex items-center group">
             <img 
               src="/Assets/Logo-Banglow.png" 
               alt="Banglow Logo" 
-              className="h-11 w-auto object-contain transition-transform duration-305 group-hover:scale-102" 
+              className={`h-11 w-auto object-contain transition-all duration-300 group-hover:scale-102 ${
+                isScrolled ? "" : "brightness-0 invert"
+              }`} 
             />
           </Link>
 
-          {/* Desktop Nav in a capsule container */}
-          <nav className="hidden md:flex items-center gap-4 px-5 py-2 rounded-full border border-cream-300 bg-cream-200/50 backdrop-blur-md shadow-xs">
+          {/* Desktop Nav in a capsule container - dynamically colored */}
+          <nav className={`hidden md:flex items-center gap-4 px-5 py-2 rounded-full border transition-all duration-300 ${
+            isScrolled 
+              ? "border-cream-300 bg-cream-200/50" 
+              : "border-white/10 bg-black/25"
+          } backdrop-blur-md shadow-xs`}>
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -66,15 +72,17 @@ export default function Header() {
                   href={link.href}
                   className={`text-[10px] tracking-widest uppercase transition-colors relative py-1 px-3.5 font-bold ${
                     isActive
-                      ? "text-primary"
-                      : "text-[#211E1A] hover:text-primary"
+                      ? (isScrolled ? "text-primary" : "text-white")
+                      : (isScrolled ? "text-cream-500 hover:text-primary" : "text-white/80 hover:text-white")
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
-                      className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-primary"
+                      className={`absolute bottom-0 left-3.5 right-3.5 h-0.5 ${
+                        isScrolled ? "bg-primary" : "bg-white"
+                      }`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -85,11 +93,15 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop Book Call Button */}
+          {/* Desktop Book Call Button - Capsule styled */}
           <div className="hidden md:flex items-center">
             <Link
               href="/book-meeting"
-              className="px-5 py-2.5 rounded-full border border-cream-300 bg-white text-[#211E1A] hover:bg-cream-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-xs uppercase tracking-widest font-bold"
+              className={`px-5 py-2.5 rounded-full border transition-all duration-300 text-xs uppercase tracking-widest font-bold ${
+                isScrolled
+                  ? "border-cream-300 bg-white text-[#211E1A] hover:bg-cream-100 hover:shadow-md hover:-translate-y-0.5"
+                  : "border-white/15 bg-white text-black hover:bg-white/90 hover:shadow-lg hover:-translate-y-0.5"
+              }`}
             >
               Book Call
             </Link>
