@@ -54,25 +54,15 @@ body {
   line-height: 1.6;
 }
 
-/* Custom Scrollbar */
-::-webkit-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Hide scrollbars globally */
+html {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  display: none; /* Chrome, Safari, Opera */
 }
-::-webkit-scrollbar-track {
-  background: #faf7f2;
-}
-::-webkit-scrollbar-thumb {
-  background: #e4dcd0;
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #b5623a;
-}
+
 
 /* Warm utilities */
 .editorial-lead {

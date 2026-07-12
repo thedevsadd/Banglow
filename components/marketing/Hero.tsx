@@ -61,10 +61,10 @@ export default function Hero() {
       />
 
       {/* Main Content Wrapper */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-between">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 h-full flex flex-col justify-between">
         
         {/* Left Aligned Text Block */}
-        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl">
+        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-4 lg:pl-10">
           <span className="text-xs uppercase tracking-[0.35em] text-primary font-extrabold mb-4">
             Banglow Real Estate
           </span>
@@ -78,7 +78,7 @@ export default function Hero() {
           
           <p
             ref={subtitleRef}
-            className="text-cream-500 text-sm sm:text-base md:text-lg font-light tracking-wide max-w-xl leading-relaxed"
+            className="text-cream-550 text-xs sm:text-sm font-light max-w-md leading-snug mt-1"
           >
             An architect-first builder crafting high-design residential sanctuaries across Dhaka’s premium enclaves.
           </p>
