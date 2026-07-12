@@ -27,8 +27,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         {/* Brand Column */}
         <div className="flex flex-col gap-4">
-          <Link href="/">
-            <span className="font-serif text-2xl tracking-[0.18em] font-bold text-[#FAF7F2] hover:text-primary transition-colors">
+          <Link href="/" className="flex items-center gap-3 group">
+            <img src="/Assets/Logo-Banglow.png" alt="Banglow Logo" className="h-8 w-auto object-contain brightness-0 invert" />
+            <span className="font-serif text-xl md:text-2xl tracking-[0.18em] font-bold text-[#FAF7F2] group-hover:text-primary transition-colors">
               BANGLOW
             </span>
           </Link>

@@ -54,9 +54,9 @@ export default function Hero() {
     >
       {/* Background Image with warm cream overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-15 scale-102"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-25 scale-102"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1920&q=80')`,
+          backgroundImage: `url('/Assets/Hero-bg.jpeg')`,
         }}
       />
       {/* Soft warm gradients for masking */}

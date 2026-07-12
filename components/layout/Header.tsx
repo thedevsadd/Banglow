@@ -49,8 +49,9 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-serif text-2xl tracking-[0.18em] font-bold text-foreground transition-colors group-hover:text-primary">
+          <Link href="/" className="flex items-center gap-3 group">
+            <img src="/Assets/Logo-Banglow.png" alt="Banglow Logo" className="h-8 w-auto object-contain" />
+            <span className="font-serif text-xl md:text-2xl tracking-[0.18em] font-bold text-foreground transition-colors group-hover:text-primary">
               BANGLOW
             </span>
           </Link>
