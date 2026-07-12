@@ -8,24 +8,24 @@ import { formatBDTWord } from "@/lib/utils/formatCurrency";
 
 export default function FeaturedGrid() {
   return (
-    <section className="bg-dark-950 py-24 relative">
+    <section className="bg-background py-24 relative">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-gold-500 font-bold mb-3 block">
+            <span className="text-xs uppercase tracking-[0.25em] text-primary font-bold mb-3 block">
               Flagship Collection
             </span>
-            <h2 className="font-serif text-3xl md:text-5xl font-bold text-white">
+            <h2 className="font-serif text-3xl md:text-5xl font-semibold text-foreground">
               Signature Residential Landmarks
             </h2>
           </div>
           <Link
             href="/properties"
-            className="flex items-center gap-2 text-sm text-gold-500 hover:text-gold-400 font-semibold tracking-wider uppercase group border-b border-gold-500/20 pb-1"
+            className="flex items-center gap-2 text-xs text-primary hover:text-terracotta-600 font-bold tracking-widest uppercase group border-b border-primary/20 pb-1"
           >
             Explore All 6 Properties
-            <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </div>
 
@@ -34,23 +34,23 @@ export default function FeaturedGrid() {
           {PROPERTIES.map((property) => (
             <div
               key={property.id}
-              className="group bg-dark-900 border border-dark-800 hover:border-gold-500/30 rounded-sm overflow-hidden flex flex-col transition-all duration-300 relative"
+              className="group bg-cream-200 border border-cream-300 hover:border-primary/20 rounded-sm overflow-hidden flex flex-col transition-all duration-300 relative shadow-sm"
             >
               {/* Image Container */}
               <div className="relative h-64 w-full overflow-hidden">
                 <img
                   src={property.heroImage}
                   alt={property.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
                 />
                 
                 {/* Status Badge */}
                 <div className="absolute top-4 left-4 z-10">
                   <span
-                    className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border ${
+                    className={`text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border ${
                       property.status === "ongoing"
-                        ? "bg-gold-500/10 border-gold-500/30 text-gold-500"
-                        : "bg-white/10 border-white/20 text-white"
+                        ? "bg-primary/10 border-primary/30 text-primary"
+                        : "bg-cream-100/90 border-cream-300 text-foreground"
                     } backdrop-blur-md`}
                   >
                     {property.status}
@@ -59,7 +59,7 @@ export default function FeaturedGrid() {
 
                 {/* Price tag */}
                 <div className="absolute bottom-4 right-4 z-10">
-                  <span className="text-xs font-bold bg-dark-950/80 border border-dark-800 text-gold-500 px-3 py-1.5 rounded-sm backdrop-blur-md">
+                  <span className="text-xs font-bold bg-background/90 border border-cream-300 text-primary px-3 py-1.5 rounded-sm backdrop-blur-md">
                     From {formatBDTWord(property.pricing.totalPriceMin)}
                   </span>
                 </div>
@@ -68,22 +68,22 @@ export default function FeaturedGrid() {
               {/* Specs & Info */}
               <div className="p-6 flex-grow flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-1.5 text-dark-400 text-xs mb-2">
-                    <MapPin size={12} className="text-gold-500" />
+                  <div className="flex items-center gap-1.5 text-cream-500 text-xs mb-2">
+                    <MapPin size={12} className="text-primary" />
                     <span>{property.area}, Dhaka</span>
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-white mb-2 group-hover:text-gold-500 transition-colors">
+                  <h3 className="font-serif text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {property.name}
                   </h3>
-                  <p className="text-dark-300 text-sm font-light line-clamp-2 mb-6">
+                  <p className="text-cream-500 text-sm font-light line-clamp-2 mb-6 leading-relaxed">
                     {property.tagline}
                   </p>
                 </div>
 
-                <div className="border-t border-dark-800 pt-4 mt-auto">
-                  <div className="flex justify-between items-center text-xs text-dark-400 mb-6">
+                <div className="border-t border-cream-300 pt-4 mt-auto">
+                  <div className="flex justify-between items-center text-xs text-cream-500 mb-6">
                     <div className="flex items-center gap-1">
-                      <Minimize2 size={12} className="text-gold-500" />
+                      <Minimize2 size={12} className="text-primary" />
                       <span>{property.atAGlance.unitSizeRange}</span>
                     </div>
                     <span>{property.atAGlance.floors} Floors</span>
@@ -91,7 +91,7 @@ export default function FeaturedGrid() {
 
                   <Link
                     href={`/properties/${property.slug}`}
-                    className="w-full text-center block py-3 rounded-sm border border-dark-800 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-dark-950 font-bold text-xs uppercase tracking-widest transition-all duration-300"
+                    className="w-full text-center block py-3 rounded-sm border border-cream-300 text-foreground group-hover:border-primary group-hover:bg-primary group-hover:text-cream-100 font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer"
                   >
                     View Residences
                   </Link>

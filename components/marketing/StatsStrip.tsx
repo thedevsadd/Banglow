@@ -69,17 +69,17 @@ export default function StatsStrip() {
   ];
 
   return (
-    <section className="bg-dark-900 border-y border-dark-800 py-10 relative overflow-hidden">
+    <section className="bg-cream-200 border-y border-cream-300 py-10 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center">
         {stats.map((stat, idx) => (
           <div
             key={idx}
-            className="flex flex-col items-center justify-center border-r last:border-r-0 border-dark-800 last:border-none px-4"
+            className="flex flex-col items-center justify-center border-r last:border-r-0 border-cream-300 last:border-none px-4"
           >
-            <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-gold-500 mb-1">
+            <div className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1">
               <Ticker value={stat.value} suffix={stat.suffix} />
             </div>
-            <div className="text-xs uppercase tracking-widest text-dark-400 font-semibold text-center mt-1">
+            <div className="text-[10px] uppercase tracking-widest text-cream-500 font-bold text-center mt-1">
               {stat.label}
             </div>
           </div>

@@ -2,54 +2,48 @@
 
 @theme {
   --font-sans: var(--font-inter), sans-serif;
-  --font-serif: var(--font-playfair), serif;
+  --font-serif: var(--font-fraunces), serif;
   
-  --color-gold-50: #fcf9f2;
-  --color-gold-100: #f6edd9;
-  --color-gold-200: #eedab7;
-  --color-gold-300: #e2be8c;
-  --color-gold-400: #d49c63;
-  --color-gold-500: #c5a880; /* Base accent gold */
-  --color-gold-600: #b59166;
-  --color-gold-700: #97744f;
-  --color-gold-800: #7c5c41;
-  --color-gold-900: #654c37;
-  --color-gold-950: #3a291e;
+  --color-terracotta-50: #fdf5f2;
+  --color-terracotta-100: #fbebe3;
+  --color-terracotta-200: #f7d6c7;
+  --color-terracotta-300: #efa88d;
+  --color-terracotta-400: #e37452;
+  --color-terracotta-500: #b5623a; /* Primary accent terracotta */
+  --color-terracotta-600: #9b4f2e;
+  --color-terracotta-700: #813f26;
+  --color-terracotta-800: #6b3521;
+  --color-terracotta-900: #592e1f;
 
-  --color-dark-50: #f6f6f6;
-  --color-dark-100: #e7e7e7;
-  --color-dark-200: #d1d1d1;
-  --color-dark-300: #b0b0b0;
-  --color-dark-400: #888888;
-  --color-dark-500: #6d6d6d;
-  --color-dark-600: #5d5d5d;
-  --color-dark-700: #4f4f4f;
-  --color-dark-800: #373737;
-  --color-dark-900: #1a1a1a;
-  --color-dark-950: #0a0a0a; /* Base dark background */
+  --color-cream-50: #fdfdfd;
+  --color-cream-100: #faf7f2; /* background cream */
+  --color-cream-200: #f0eae0; /* secondary card */
+  --color-cream-300: #e4dcd0; /* borders */
+  --color-cream-450: #a89a88;
+  --color-cream-500: #7b6f60; /* muted text */
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
-  --card: #121212;
-  --card-foreground: #f5f5f5;
-  --popover: #121212;
-  --popover-foreground: #f5f5f5;
-  --primary: #c5a880;
-  --primary-foreground: #0a0a0a;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #f5f5f5;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #c5a880;
-  --accent-foreground: #0a0a0a;
+  --background: #faf7f2;
+  --foreground: #211e1a;
+  --card: #f0eae0;
+  --card-foreground: #211e1a;
+  --popover: #faf7f2;
+  --popover-foreground: #211e1a;
+  --primary: #b5623a;
+  --primary-foreground: #faf7f2;
+  --secondary: #f0eae0;
+  --secondary-foreground: #211e1a;
+  --muted: #e4dcd0;
+  --muted-foreground: #7b6f60;
+  --accent: #b5623a;
+  --accent-foreground: #faf7f2;
   --destructive: #ef4444;
-  --destructive-foreground: #f5f5f5;
-  --border: #1f1f1f;
-  --input: #1a1a1a;
-  --ring: #c5a880;
-  --radius: 0.5rem;
+  --destructive-foreground: #faf7f2;
+  --border: #e4dcd0;
+  --input: #faf7f2;
+  --ring: #b5623a;
+  --radius: 0.125rem; /* Sharp, minimal corners */
 }
 
 body {
@@ -57,59 +51,45 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  line-height: 1.6;
 }
 
 /* Custom Scrollbar */
+::-webkit-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #faf7f2;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #e4dcd0;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c5a880;
+  background: #b5623a;
 }
 
-/* Premium Utilities */
-.glassmorphism {
-  background: rgba(18, 18, 18, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Warm utilities */
+.editorial-lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  letter-spacing: 0.02em;
 }
 
-.gold-gradient-text {
-  background: linear-gradient(135deg, #f6edd9 0%, #c5a880 50%, #97744f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.subtle-border {
+  border: 1px solid #e4dcd0;
 }
 
-.gold-gradient-bg {
-  background: linear-gradient(135deg, #eedab7 0%, #c5a880 50%, #97744f 100%);
+.subtle-divider {
+  background-color: #e4dcd0;
 }
 
-.gold-border-glow {
-  box-shadow: 0 0 15px rgba(197, 168, 128, 0.15);
-  border: 1px solid rgba(197, 168, 128, 0.3);
-}
-
-.gold-border-glow:hover {
-  box-shadow: 0 0 25px rgba(197, 168, 128, 0.3);
-  border: 1px solid rgba(197, 168, 128, 0.6);
-}
-
-/* Timeline Custom line styling */
+/* Timeline Custom line styling for cream layout */
 .timeline-line-gradient {
-  background: linear-gradient(to bottom, #c5a880, #1f1f1f);
-}
-
-/* Leaflet maps custom dark styling */
-.leaflet-container {
-  background: #0a0a0a !important;
+  background: linear-gradient(to bottom, #b5623a, #e4dcd0);
 }
