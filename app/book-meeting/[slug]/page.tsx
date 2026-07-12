@@ -3,8 +3,6 @@
 import React, { useState, useEffect, use } from "react";
 import { useRouter, notFound } from "next/navigation";
 import Link from "next/link";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES } from "@/lib/data/properties";
 import { getDummySlots, TIME_SLOTS, isSlotBooked } from "@/lib/store/dummySlots";
 import { saveMeeting } from "@/lib/store/meetings";
@@ -182,7 +180,6 @@ export default function BookMeetingPage({ params }: BookMeetingPageProps) {
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-6">
           
@@ -433,7 +430,6 @@ export default function BookMeetingPage({ params }: BookMeetingPageProps) {
 
         </div>
       </main>
-      <Footer />
     </>
   );
 }

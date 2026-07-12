@@ -4,8 +4,6 @@ import React, { useState, useEffect, Suspense, use, useCallback } from "react";
 import { useSearchParams, useRouter, notFound } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES, Unit } from "@/lib/data/properties";
 import { getDummySlots, TIME_SLOTS } from "@/lib/store/dummySlots";
 import { saveBooking, Booking } from "@/lib/store/bookings";
@@ -710,7 +708,6 @@ export default function CheckoutPage({ params }: CheckoutPageProps) {
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background">
         <Suspense fallback={
           <div className="text-center py-20">
@@ -720,7 +717,6 @@ export default function CheckoutPage({ params }: CheckoutPageProps) {
           <CheckoutContent slug={slug} />
         </Suspense>
       </main>
-      <Footer />
     </>
   );
 }

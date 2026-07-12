@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, Suspense, use } from "react";
 import { useSearchParams, useRouter, notFound } from "next/navigation";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES } from "@/lib/data/properties";
 import { getMeetingBySerial, Meeting } from "@/lib/store/meetings";
 import { CheckCircle, Copy, Check, Calendar, ArrowRight, Home } from "lucide-react";
@@ -243,7 +241,6 @@ export default function BookingConfirmedPage({ params }: BookingConfirmedPagePro
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background">
         <div className="max-w-4xl mx-auto px-6">
           <Suspense fallback={
@@ -255,7 +252,6 @@ export default function BookingConfirmedPage({ params }: BookingConfirmedPagePro
           </Suspense>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

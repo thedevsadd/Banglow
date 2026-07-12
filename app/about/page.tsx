@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Compass, ShieldCheck } from "lucide-react";
 
 export default function AboutPage() {
@@ -16,7 +14,6 @@ export default function AboutPage() {
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background text-foreground">
         
         {/* Intro Hero */}
@@ -58,15 +55,24 @@ export default function AboutPage() {
                 <div className="flex gap-3">
                   <Compass className="text-primary flex-shrink-0" size={20} />
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-foreground mb-1">Architect-Led</h4>
-                    <p className="text-cream-550 text-xs font-light">Custom designs tailored to neighborhood vibes.</p>
+                    <h3 className="font-serif text-sm font-bold text-foreground mb-1">
+                      Solar Tracking Design
+                    </h3>
+                    <p className="text-xs text-cream-500 font-light leading-relaxed">
+                      Slabs and louvers engineered to block harsh summer rays while welcoming winter warmth.
+                    </p>
                   </div>
                 </div>
+                
                 <div className="flex gap-3">
                   <ShieldCheck className="text-primary flex-shrink-0" size={20} />
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-bold text-foreground mb-1">Grade-A Materials</h4>
-                    <p className="text-cream-550 text-xs font-light">High-tensile steel and certified aggregates.</p>
+                    <h3 className="font-serif text-sm font-bold text-foreground mb-1">
+                      Material Integrity
+                    </h3>
+                    <p className="text-xs text-cream-500 font-light leading-relaxed">
+                      Fair-faced concrete slabs, exposed brick accents, and local timber frameworks.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -74,27 +80,28 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Brand Timeline */}
+        {/* Timeline */}
         <section className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="text-xs uppercase tracking-widest text-primary font-bold mb-3 block">
-              Evolution
-            </span>
-            <h2 className="font-serif text-3xl font-bold text-foreground">
-              Twenty-Six Years of Handovers
-            </h2>
-          </div>
-
-          <div className="relative pl-6 border-l border-cream-300 flex flex-col gap-12 max-w-2xl mx-auto">
-            {achievements.map((item, idx) => (
-              <div key={idx} className="relative group">
-                {/* Node */}
-                <span className="absolute -left-9 top-1 bg-cream-200 border border-primary text-primary text-[10px] font-bold px-2 py-0.5 rounded-sm transition-colors">
-                  {item.year}
-                </span>
+          <span className="text-xs uppercase tracking-[0.25em] text-primary font-bold mb-3 block text-center">
+            Our Journey
+          </span>
+          <h2 className="font-serif text-3xl md:text-4xl font-semibold text-foreground text-center mb-16">
+            Landmarks Through Time
+          </h2>
+          
+          <div className="relative border-l border-cream-300 pl-8 ml-4 space-y-12">
+            {achievements.map((item) => (
+              <div key={item.year} className="relative group">
+                {/* Timeline node */}
+                <div className="absolute -left-[41px] top-1 bg-background border-2 border-primary w-5 h-5 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                </div>
                 
                 <div>
-                  <h3 className="text-base font-bold text-foreground group-hover:text-primary transition-colors">
+                  <span className="font-serif text-xs font-semibold text-primary block">
+                    {item.year}
+                  </span>
+                  <h3 className="font-serif text-lg font-bold text-foreground mt-0.5">
                     {item.title}
                   </h3>
                   <p className="text-xs text-cream-500 font-light mt-1.5 leading-relaxed">
@@ -107,7 +114,6 @@ export default function AboutPage() {
         </section>
 
       </main>
-      <Footer />
     </>
   );
 }

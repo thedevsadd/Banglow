@@ -33,7 +33,7 @@ export default function Header() {
 
   const navLinks = [
     { name: "Properties", href: "/properties" },
-    { name: "About Brand", href: "/about" },
+    { name: "About", href: "/about" },
     { name: "Contact Us", href: "/contact" },
   ];
 
@@ -91,17 +91,17 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop Book Call Button - Capsule styled */}
+          {/* Desktop Meeting Button - Slim capsule styled */}
           <div className="hidden md:flex items-center">
             <Link
               href="/book-meeting"
-              className={`px-5 py-2.5 rounded-full border transition-all duration-300 text-xs uppercase tracking-widest font-bold ${
+              className={`px-4.5 py-1.5 rounded-full border transition-all duration-300 text-[10px] uppercase tracking-widest font-extrabold ${
                 isScrolled
                   ? "border-cream-300 bg-white text-[#211E1A] hover:bg-cream-100 hover:shadow-md hover:-translate-y-0.5"
                   : "border-white/15 bg-white text-black hover:bg-white/90 hover:shadow-lg hover:-translate-y-0.5"
               }`}
             >
-              Book Call
+              Meeting
             </Link>
           </div>
 
@@ -168,7 +168,7 @@ export default function Header() {
                 href="/book-meeting"
                 className="w-full text-center py-4 rounded-sm bg-primary text-cream-100 hover:bg-terracotta-600 transition-colors uppercase tracking-widest font-semibold text-sm"
               >
-                Book Call
+                Meeting
               </Link>
               <div className="flex items-center justify-around text-cream-500 text-xs">
                 <span className="flex items-center gap-1">

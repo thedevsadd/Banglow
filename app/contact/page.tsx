@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
@@ -29,7 +27,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-6">
           
@@ -183,7 +180,6 @@ export default function ContactPage() {
 
         </div>
       </main>
-      <Footer />
     </>
   );
 }

@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { getMeetingBySerial, Meeting } from "@/lib/store/meetings";
 import { getBookingBySerialOrInvoice, Booking } from "@/lib/store/bookings";
 import { PROPERTIES, Property } from "@/lib/data/properties";
@@ -225,7 +223,6 @@ function TrackContent() {
 export default function TrackPage() {
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background">
         <Suspense fallback={
           <div className="max-w-7xl mx-auto px-6 py-24 text-center">
@@ -235,7 +232,6 @@ export default function TrackPage() {
           <TrackContent />
         </Suspense>
       </main>
-      <Footer />
     </>
   );
 }

@@ -1,16 +1,13 @@
-import Header from "@/components/layout/Header";
 import Hero from "@/components/marketing/Hero";
 import StatsStrip from "@/components/marketing/StatsStrip";
 import FeaturedGrid from "@/components/marketing/FeaturedGrid";
 import WhyUs from "@/components/marketing/WhyUs";
-import Footer from "@/components/layout/Footer";
 import Link from "next/link";
 import { ArrowRight, Calendar, UserCheck } from "lucide-react";
 
 export default function Home() {
   return (
     <>
-      <Header />
       <main className="flex-grow">
         {/* Hero Section */}
         <Hero />
@@ -59,7 +56,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }

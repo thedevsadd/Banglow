@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES } from "@/lib/data/properties";
 import { MapPin, ArrowRight } from "lucide-react";
 import Link from "next/link";
@@ -10,7 +8,6 @@ import Link from "next/link";
 export default function GenericBookMeeting() {
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32 pb-24 bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-6">
           {/* Title */}
@@ -61,7 +58,6 @@ export default function GenericBookMeeting() {
 
         </div>
       </main>
-      <Footer />
     </>
   );
 }

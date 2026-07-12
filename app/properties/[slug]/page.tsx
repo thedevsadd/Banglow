@@ -3,8 +3,6 @@
 import React, { useState, use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES } from "@/lib/data/properties";
 import { formatBDT, formatBDTWord } from "@/lib/utils/formatCurrency";
 import { 
@@ -67,7 +65,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
   return (
     <>
-      <Header />
       <main className="flex-grow pt-28 pb-20 bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-6">
           {/* Back button */}
@@ -429,7 +426,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
           </div>
         </div>
       )}
-      <Footer />
     </>
   );
 }

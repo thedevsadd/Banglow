@@ -10,6 +10,14 @@ export default function Hero() {
   const [area, setArea] = useState("");
   const [status, setStatus] = useState("");
   
+  // Custom dropdown states
+  const [isAreaOpen, setIsAreaOpen] = useState(false);
+  const [isStatusOpen, setIsStatusOpen] = useState(false);
+
+  // Refs for click outside
+  const areaRef = useRef<HTMLDivElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -35,6 +43,20 @@ export default function Hero() {
     }, heroRef);
 
     return () => ctx.revert();
+  }, []);
+
+  // Handle click outside to close custom dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (areaRef.current && !areaRef.current.contains(event.target as Node)) {
+        setIsAreaOpen(false);
+      }
+      if (statusRef.current && !statusRef.current.contains(event.target as Node)) {
+        setIsStatusOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -84,53 +106,119 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Centered Compact Search Bar - Sized to max-w-4xl for readability */}
+        {/* Centered Compact Search Bar - Sized to max-w-3xl for compact pill layout */}
         <div
           ref={searchWidgetRef}
           className="w-full flex justify-center pb-16 z-20"
         >
-          <div className="w-full max-w-3xl p-1 bg-white/15 border border-white/25 rounded-full shadow-lg backdrop-blur-md relative overflow-hidden px-3">
+          <div className="w-full max-w-3xl p-1 bg-white/15 border border-white/25 rounded-full shadow-lg backdrop-blur-md relative px-3">
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-2">
               
-              {/* Select Area - Premium styling */}
-              <div className="w-full sm:flex-1 flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group">
+              {/* Select Area - Custom Dropdown Pill */}
+              <div 
+                ref={areaRef}
+                onClick={() => setIsAreaOpen(!isAreaOpen)}
+                className="w-full sm:flex-1 flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group"
+              >
                 <MapPin className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5">
+                  <span className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5 pointer-events-none">
                     Select Area
-                  </label>
-                  <select
-                    value={area}
-                    onChange={(e) => setArea(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
-                  >
-                    <option value="" className="bg-cream-100 text-cream-500">All Locations</option>
-                    {areas.map((a) => (
-                      <option key={a} value={a} className="bg-cream-100 text-foreground">{a}</option>
-                    ))}
-                  </select>
+                  </span>
+                  <span className="text-foreground font-bold text-xs select-none block min-h-[16px]">
+                    {area || "All Locations"}
+                  </span>
                 </div>
                 <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                
+                {/* Custom Area Dropdown List */}
+                {isAreaOpen && (
+                  <div className="absolute bottom-[110%] left-0 w-full bg-cream-100/95 backdrop-blur-md border border-cream-300 rounded-sm shadow-xl py-1 z-30 max-h-48 overflow-y-auto">
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setArea("");
+                        setIsAreaOpen(false);
+                      }}
+                      className="px-4 py-2 text-xs text-cream-500 hover:bg-[#211E1A] hover:text-white transition-colors cursor-pointer text-left font-bold"
+                    >
+                      All Locations
+                    </div>
+                    {areas.map((a) => (
+                      <div
+                        key={a}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setArea(a);
+                          setIsAreaOpen(false);
+                        }}
+                        className={`px-4 py-2 text-xs hover:bg-[#211E1A] hover:text-white transition-colors cursor-pointer text-left font-bold ${
+                          area === a ? "text-primary bg-cream-200" : "text-foreground"
+                        }`}
+                      >
+                        {a}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              {/* Select Status - Premium styling */}
-              <div className="w-full sm:w-[35%] flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group">
+              {/* Select Status - Custom Dropdown Pill */}
+              <div 
+                ref={statusRef}
+                onClick={() => setIsStatusOpen(!isStatusOpen)}
+                className="w-full sm:w-[35%] flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group"
+              >
                 <Building className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5">
+                  <span className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5 pointer-events-none">
                     Project Status
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
-                  >
-                    <option value="" className="bg-cream-100 text-cream-500">All Statuses</option>
-                    <option value="ongoing" className="bg-cream-100 text-foreground">Ongoing Development</option>
-                    <option value="upcoming" className="bg-cream-100 text-foreground">Upcoming Release</option>
-                  </select>
+                  </span>
+                  <span className="text-foreground font-bold text-xs select-none block min-h-[16px]">
+                    {status === "ongoing" ? "Ongoing Development" : status === "upcoming" ? "Upcoming Release" : "All Statuses"}
+                  </span>
                 </div>
                 <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                
+                {/* Custom Status Dropdown List */}
+                {isStatusOpen && (
+                  <div className="absolute bottom-[110%] left-0 w-full bg-cream-100/95 backdrop-blur-md border border-cream-300 rounded-sm shadow-xl py-1 z-30">
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setStatus("");
+                        setIsStatusOpen(false);
+                      }}
+                      className="px-4 py-2 text-xs text-cream-500 hover:bg-[#211E1A] hover:text-white transition-colors cursor-pointer text-left font-bold"
+                    >
+                      All Statuses
+                    </div>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setStatus("ongoing");
+                        setIsStatusOpen(false);
+                      }}
+                      className={`px-4 py-2 text-xs hover:bg-[#211E1A] hover:text-white transition-colors cursor-pointer text-left font-bold ${
+                        status === "ongoing" ? "text-primary bg-cream-200" : "text-foreground"
+                      }`}
+                    >
+                      Ongoing Development
+                    </div>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setStatus("upcoming");
+                        setIsStatusOpen(false);
+                      }}
+                      className={`px-4 py-2 text-xs hover:bg-[#211E1A] hover:text-white transition-colors cursor-pointer text-left font-bold ${
+                        status === "upcoming" ? "text-primary bg-cream-200" : "text-foreground"
+                      }`}
+                    >
+                      Upcoming Release
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Search Button */}

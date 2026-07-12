@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PROPERTIES } from "@/lib/data/properties";
 import { formatBDTWord } from "@/lib/utils/formatCurrency";
 import { MapPin, Minimize2, Layers, ArrowUpDown, Filter } from "lucide-react";
@@ -220,7 +218,6 @@ function PropertyListingContent() {
 export default function PropertiesListing() {
   return (
     <>
-      <Header />
       <main className="flex-grow pt-32">
         <Suspense fallback={
           <div className="max-w-7xl mx-auto px-6 py-24 text-center">
@@ -230,7 +227,6 @@ export default function PropertiesListing() {
           <PropertyListingContent />
         </Suspense>
       </main>
-      <Footer />
     </>
   );
 }
