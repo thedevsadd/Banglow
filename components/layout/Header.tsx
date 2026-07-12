@@ -35,7 +35,6 @@ export default function Header() {
     { name: "Properties", href: "/properties" },
     { name: "About Brand", href: "/about" },
     { name: "Contact Us", href: "/contact" },
-    { name: "Track Progress", href: "/track" },
   ];
 
   return (
@@ -43,28 +42,29 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-cream-100/90 backdrop-blur-md py-4 shadow-sm border-b border-cream-300"
-            : "bg-transparent py-6"
+            ? "bg-cream-100/90 backdrop-blur-md py-3 shadow-sm border-b border-cream-300"
+            : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <img src="/Assets/Logo-Banglow.png" alt="Banglow Logo" className="h-8 w-auto object-contain" />
-            <span className="font-serif text-xl md:text-2xl tracking-[0.18em] font-bold text-foreground transition-colors group-hover:text-primary">
-              BANGLOW
-            </span>
+          {/* Logo - Text removed, size scaled */}
+          <Link href="/" className="flex items-center group">
+            <img 
+              src="/Assets/Logo-Banglow.png" 
+              alt="Banglow Logo" 
+              className="h-11 w-auto object-contain transition-transform duration-305 group-hover:scale-102" 
+            />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav in a capsule container */}
+          <nav className="hidden md:flex items-center gap-4 px-5 py-2 rounded-full border border-cream-300 bg-cream-200/50 backdrop-blur-md shadow-xs">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs tracking-widest uppercase transition-colors relative py-1 font-semibold ${
+                  className={`text-[10px] tracking-widest uppercase transition-colors relative py-1 px-3.5 font-bold ${
                     isActive
                       ? "text-primary"
                       : "text-cream-500 hover:text-primary"
@@ -74,7 +74,7 @@ export default function Header() {
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                      className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-primary"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -85,13 +85,13 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Desktop Booking Button */}
+          {/* Desktop Book Call Button */}
           <div className="hidden md:flex items-center">
             <Link
-              href="/properties"
+              href="/book-meeting"
               className="px-5 py-2.5 rounded-sm border border-primary text-primary hover:bg-primary hover:text-cream-100 transition-all duration-300 text-xs uppercase tracking-widest font-semibold"
             >
-              Book Site Visit
+              Book Call
             </Link>
           </div>
 
@@ -137,14 +137,28 @@ export default function Header() {
                   </motion.div>
                 );
               })}
+              
+              {/* Optional tracker added for mobile access */}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 3 * 0.05 }}
+              >
+                <Link
+                  href="/track"
+                  className={`text-2xl font-serif tracking-wider block text-primary font-bold`}
+                >
+                  Track Progress
+                </Link>
+              </motion.div>
             </div>
 
             <div className="flex flex-col gap-6">
               <Link
-                href="/properties"
+                href="/book-meeting"
                 className="w-full text-center py-4 rounded-sm bg-primary text-cream-100 hover:bg-terracotta-600 transition-colors uppercase tracking-widest font-semibold text-sm"
               >
-                Explore Properties
+                Book Call
               </Link>
               <div className="flex items-center justify-around text-cream-500 text-xs">
                 <span className="flex items-center gap-1">
