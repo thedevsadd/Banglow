@@ -4,6 +4,14 @@
   --font-sans: var(--font-inter), sans-serif;
   --font-serif: var(--font-fraunces), serif;
   
+  --color-primary: #b5623a;
+  --color-primary-foreground: #faf7f2;
+  --color-background: #faf7f2;
+  --color-foreground: #211e1a;
+  --color-card: #f0eae0;
+  --color-card-foreground: #211e1a;
+  --color-border: #e4dcd0;
+  
   --color-terracotta-50: #fdf5f2;
   --color-terracotta-100: #fbebe3;
   --color-terracotta-200: #f7d6c7;

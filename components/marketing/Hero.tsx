@@ -60,11 +60,11 @@ export default function Hero() {
         }}
       />
 
-      {/* Main Content Wrapper */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 h-full flex flex-col justify-between">
+      {/* Main Content Wrapper - Set to max-w-6xl to align with header grid */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 h-full flex flex-col justify-between">
         
-        {/* Left Aligned Text Block */}
-        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-4 lg:pl-10">
+        {/* Left Aligned Text Block with responsive padding */}
+        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-6 lg:pl-16">
           <span className="text-xs uppercase tracking-[0.35em] text-primary font-extrabold mb-4">
             Banglow Real Estate
           </span>
@@ -84,25 +84,25 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Centered Compact Search Bar */}
+        {/* Centered Compact Search Bar - Sized to max-w-4xl for readability */}
         <div
           ref={searchWidgetRef}
           className="w-full flex justify-center pb-16 z-20"
         >
-          <div className="w-full max-w-3xl p-1 bg-cream-200 border border-cream-300 rounded-full shadow-lg relative overflow-hidden px-3">
+          <div className="w-full max-w-4xl p-1.5 bg-cream-200 border border-cream-300 rounded-full shadow-lg relative overflow-hidden px-4">
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-2">
               
               {/* Select Area - Premium styling */}
-              <div className="w-full sm:w-1/2 flex items-center gap-3 px-4 py-2 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
-                <MapPin className="text-primary flex-shrink-0" size={16} />
+              <div className="w-full sm:flex-1 flex items-center gap-3 px-5 py-3 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
+                <MapPin className="text-primary flex-shrink-0" size={18} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[8px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
+                  <label className="block text-[9px] md:text-[10px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
                     Select Area
                   </label>
                   <select
                     value={area}
                     onChange={(e) => setArea(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-6 border-none p-0 relative z-10"
+                    className="bg-transparent text-foreground font-bold text-xs md:text-sm focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
                   >
                     <option value="" className="bg-cream-100 text-cream-500">All Locations</option>
                     {areas.map((a) => (
@@ -110,36 +110,36 @@ export default function Hero() {
                     ))}
                   </select>
                 </div>
-                <ChevronDown className="absolute right-4 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
               </div>
 
               {/* Select Status - Premium styling */}
-              <div className="w-full sm:w-5/12 flex items-center gap-3 px-4 py-2 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
-                <Building className="text-primary flex-shrink-0" size={16} />
+              <div className="w-full sm:w-[35%] flex items-center gap-3 px-5 py-3 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
+                <Building className="text-primary flex-shrink-0" size={18} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[8px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
+                  <label className="block text-[9px] md:text-[10px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
                     Project Status
                   </label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-6 border-none p-0 relative z-10"
+                    className="bg-transparent text-foreground font-bold text-xs md:text-sm focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
                   >
                     <option value="" className="bg-cream-100 text-cream-500">All Statuses</option>
                     <option value="ongoing" className="bg-cream-100 text-foreground">Ongoing Development</option>
                     <option value="upcoming" className="bg-cream-100 text-foreground">Upcoming Release</option>
                   </select>
                 </div>
-                <ChevronDown className="absolute right-4 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
               </div>
 
               {/* Search Button */}
               <div className="w-full sm:w-auto p-1 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-6 py-3 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto px-7 py-3 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
                 >
-                  <Search size={12} />
+                  <Search size={14} />
                   Find Residencies
                 </button>
               </div>
