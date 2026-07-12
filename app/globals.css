@@ -4,7 +4,7 @@
   --font-sans: var(--font-inter), sans-serif;
   --font-serif: var(--font-fraunces), serif;
   
-  --color-primary: #b5623a;
+  --color-primary: #211e1a;
   --color-primary-foreground: #faf7f2;
   --color-background: #faf7f2;
   --color-foreground: #211e1a;
@@ -12,16 +12,16 @@
   --color-card-foreground: #211e1a;
   --color-border: #e4dcd0;
   
-  --color-terracotta-50: #fdf5f2;
-  --color-terracotta-100: #fbebe3;
-  --color-terracotta-200: #f7d6c7;
-  --color-terracotta-300: #efa88d;
-  --color-terracotta-400: #e37452;
-  --color-terracotta-500: #b5623a; /* Primary accent terracotta */
-  --color-terracotta-600: #9b4f2e;
-  --color-terracotta-700: #813f26;
-  --color-terracotta-800: #6b3521;
-  --color-terracotta-900: #592e1f;
+  --color-terracotta-50: #f5f5f5;
+  --color-terracotta-100: #e5e5e5;
+  --color-terracotta-200: #d4d4d4;
+  --color-terracotta-300: #a3a3a3;
+  --color-terracotta-400: #737373;
+  --color-terracotta-500: #211e1a; /* Neutral primary black */
+  --color-terracotta-600: #171513;
+  --color-terracotta-700: #0a0908;
+  --color-terracotta-800: #000000;
+  --color-terracotta-900: #000000;
 
   --color-cream-50: #fdfdfd;
   --color-cream-100: #faf7f2; /* background cream */
@@ -38,19 +38,19 @@
   --card-foreground: #211e1a;
   --popover: #faf7f2;
   --popover-foreground: #211e1a;
-  --primary: #b5623a;
+  --primary: #211e1a;
   --primary-foreground: #faf7f2;
   --secondary: #f0eae0;
   --secondary-foreground: #211e1a;
   --muted: #e4dcd0;
   --muted-foreground: #7b6f60;
-  --accent: #b5623a;
+  --accent: #211e1a;
   --accent-foreground: #faf7f2;
   --destructive: #ef4444;
   --destructive-foreground: #faf7f2;
   --border: #e4dcd0;
   --input: #faf7f2;
-  --ring: #b5623a;
+  --ring: #211e1a;
   --radius: 0.125rem; /* Sharp, minimal corners */
 }
 

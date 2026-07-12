@@ -65,20 +65,20 @@ export default function Hero() {
         
         {/* Left Aligned Text Block with responsive padding */}
         <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-6 lg:pl-16">
-          <span className="text-xs uppercase tracking-[0.35em] text-[#efa88d] font-extrabold mb-4">
+          <span className="text-xs uppercase tracking-[0.35em] text-primary font-extrabold mb-4">
             Banglow Real Estate
           </span>
           
           <h1
             ref={titleRef}
-            className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 max-w-2xl leading-[1.12]"
+            className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6 max-w-2xl leading-[1.12]"
           >
-            Signature Landmarks of <span className="text-white italic font-normal">Silent Luxury</span>
+            Signature Landmarks of <span className="text-primary italic font-normal">Silent Luxury</span>
           </h1>
           
           <p
             ref={subtitleRef}
-            className="text-white/80 text-xs sm:text-sm font-light max-w-md leading-snug mt-1"
+            className="text-cream-500 text-xs sm:text-sm font-light max-w-md leading-snug mt-1"
           >
             An architect-first builder crafting high-design residential sanctuaries across Dhaka’s premium enclaves.
           </p>
