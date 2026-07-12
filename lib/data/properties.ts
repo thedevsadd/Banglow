@@ -55,16 +55,18 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Plot 42, Road 18, Sector 3, Uttara, Dhaka",
     status: "ongoing",
     description: "Anindya stands as a tribute to classical geometry blended with contemporary minimalism. Situated in the heart of Sector 3, Uttara, it offers residents a sanctuary of calm away from the metropolitan buzz. The building is meticulously designed to optimize cross-ventilation and allow maximum natural light into every room. Expansive windows frame green street views, while double-height entryways make a grand architectural statement.",
-    heroImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Anindya (Uttara)/uttara-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Anindya (Uttara)/Angle-1.jpeg",
+      "/Assets/Anindya (Uttara)/Angle-2.jpeg",
+      "/Assets/Anindya (Uttara)/Angle-3.jpeg",
+      "/Assets/Anindya (Uttara)/Angle-4.jpeg",
+      "/Assets/Anindya (Uttara)/Angle-5.jpeg",
+      "/Assets/Anindya (Uttara)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Type A (2,100 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Type B (2,200 sft) - 3 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" }
+      { title: "Type A (2,100 sft) - 3 Bed, 3 Bath", image: "/Assets/Anindya (Uttara)/ART-1.jpeg" },
+      { title: "Type B (2,200 sft) - 3 Bed, 4 Bath", image: "/Assets/Anindya (Uttara)/ART-2.jpeg" }
     ],
     atAGlance: {
       landArea: "6.5 Katha",
@@ -104,15 +106,18 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Sector 4, Road 202, Purbachal New Town, Dhaka",
     status: "upcoming",
     description: "Aronno is designed to be an extension of the earth itself. Utilizing biophilic design guidelines, this upcoming flagship tower incorporates vertical gardens, deep-soil planters on balconies, and a central water court that aids in natural cooling. Situated in the clean, green expanse of Purbachal, Aronno offers space and fresh air that is rarely found in Dhaka's core. The architectural layouts prioritize expansive open terraces for each home.",
-    heroImage: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Aronno (Purbachal)/Purbachal-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Aronno (Purbachal)/Angle-1.jpeg",
+      "/Assets/Aronno (Purbachal)/Angle-2.jpeg",
+      "/Assets/Aronno (Purbachal)/Angle-3.jpeg",
+      "/Assets/Aronno (Purbachal)/Angle-4.jpeg",
+      "/Assets/Aronno (Purbachal)/Angle-5.jpeg",
+      "/Assets/Aronno (Purbachal)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Type A (1,900 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Type B (2,400 sft) - 4 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" }
+      { title: "Type A (1,900 sft) - 3 Bed, 3 Bath", image: "/Assets/Aronno (Purbachal)/ART-1.jpeg" },
+      { title: "Type B (2,400 sft) - 4 Bed, 4 Bath", image: "/Assets/Aronno (Purbachal)/ART-2.jpeg" }
     ],
     atAGlance: {
       landArea: "10 Katha",
@@ -151,15 +156,18 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Sector 1, Lake Road, Jalshiri Cantonment Town, Dhaka",
     status: "ongoing",
     description: "Nilashri is a state-of-the-art residential tower utilizing ultra-transparent low-E glass facade technology. Perched directly at the waterfront of Jalshiri's central lake, it offers unobstructed panoramic views. The morning mist over the lake filters directly into its spacious double-aspect living rooms. Nilashri embodies quiet luxury, with custom marble flooring, premium automation fittings, and an exclusive residents-only lakeside boardwalk.",
-    heroImage: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Nilashri (Jalshiri)/Jalshiri-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Nilashri (Jalshiri)/Angle-1.jpeg",
+      "/Assets/Nilashri (Jalshiri)/Angle-2.jpeg",
+      "/Assets/Nilashri (Jalshiri)/Angle-3.jpeg",
+      "/Assets/Nilashri (Jalshiri)/Angle-4.jpeg",
+      "/Assets/Nilashri (Jalshiri)/Angle-5.jpeg",
+      "/Assets/Nilashri (Jalshiri)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Standard Layout (2,000 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Grand Layout (2,300 sft) - 3 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" }
+      { title: "Standard Layout (2,000 sft) - 3 Bed, 3 Bath", image: "/Assets/Nilashri (Jalshiri)/ART-1.jpeg" },
+      { title: "Grand Layout (2,300 sft) - 3 Bed, 4 Bath", image: "/Assets/Nilashri (Jalshiri)/ART-2.jpeg" }
     ],
     atAGlance: {
       landArea: "8 Katha",
@@ -198,16 +206,18 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Road 71, Gulshan 2, Dhaka",
     status: "ongoing",
     description: "Belmonte redefines luxury living in Bangladesh. Located on a quiet tree-lined road in Gulshan 2, Belmonte is tailored for those who accept nothing short of global top-tier quality. Architectural features include a copper-toned louvered exterior facade, private elevators opening directly into each foyer, automated smart-home systems, and double-insulated glass. The rooftop features a 20-meter infinity pool, private cigar lounge, and sky garden overlooking the Gulshan skyline.",
-    heroImage: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Belmonte (Gulshan)/Gulshan-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Belmonte (Gulshan)/Angle-1.jpeg",
+      "/Assets/Belmonte (Gulshan)/Angle-2.jpeg",
+      "/Assets/Belmonte (Gulshan)/Angle-3.jpeg",
+      "/Assets/Belmonte (Gulshan)/Angle-4.jpeg",
+      "/Assets/Belmonte (Gulshan)/Angle-5.jpeg",
+      "/Assets/Belmonte (Gulshan)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Executive Suite (2,600 sft) - 3 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Imperial Suite (3,200 sft) - 4 Bed, 5 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" }
+      { title: "Executive Suite (2,600 sft) - 3 Bed, 4 Bath", image: "/Assets/Belmonte (Gulshan)/ART-1.jpeg" },
+      { title: "Imperial Suite (3,200 sft) - 4 Bed, 5 Bath", image: "/Assets/Belmonte (Gulshan)/ART-2.jpeg" }
     ],
     atAGlance: {
       landArea: "12 Katha",
@@ -247,14 +257,18 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Road 12/A, Dhanmondi, Dhaka",
     status: "upcoming",
     description: "Sarovar captures the romantic red-brick heritage of classic Dhanmondi architectural design, fusing it with contemporary dark steel frames and oversized balconies. Set in a quiet residential node close to Dhanmondi Lake, Sarovar is planned as a sanctuary for art lovers and culture enthusiasts. The building incorporates a private library and gallery lobby, a landscaped central atrium, and low-energy lighting systems.",
-    heroImage: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Sarovar (Dhanmondi)/Dhanmondi-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Sarovar (Dhanmondi)/Angle-1.jpeg",
+      "/Assets/Sarovar (Dhanmondi)/Angle-2.jpeg",
+      "/Assets/Sarovar (Dhanmondi)/Angle-3.jpeg",
+      "/Assets/Sarovar (Dhanmondi)/Angle-4.jpeg",
+      "/Assets/Sarovar (Dhanmondi)/Angle-5.jpeg",
+      "/Assets/Sarovar (Dhanmondi)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Standard Residence (2,200 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Lakeside Residence (2,700 sft) - 4 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" }
+      { title: "Standard Residence (2,200 sft) - 3 Bed, 3 Bath", image: "/Assets/Sarovar (Dhanmondi)/ART-1.jpeg" },
+      { title: "Lakeside Residence (2,700 sft) - 4 Bed, 4 Bath", image: "/Assets/Sarovar (Dhanmondi)/ART-2.jpeg" }
     ],
     atAGlance: {
       landArea: "9 Katha",
@@ -293,16 +307,19 @@ export const PROPERTIES: Property[] = [
     fullAddress: "Block I, Road 12, Bashundhara R/A, Dhaka",
     status: "ongoing",
     description: "Solvera is engineered for the fast-paced life of modern entrepreneurs and professionals. Positioned inside Bashundhara R/A, it is designed with a sleek concrete, glass, and steel facade. The units feature smart lock entries, space-optimizing modular layouts, and acoustic double glazing. Solvera provides extensive shared workspaces, a high-tech gym, and an organic juice bar on the rooftop lounge.",
-    heroImage: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80",
+    heroImage: "/Assets/Solvera (Bashundhara)/Bashundhara-cover.jpeg",
     gallery: [
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+      "/Assets/Solvera (Bashundhara)/Angle-1.jpeg",
+      "/Assets/Solvera (Bashundhara)/Angle-2.jpeg",
+      "/Assets/Solvera (Bashundhara)/Angle-3.jpeg",
+      "/Assets/Solvera (Bashundhara)/Angle-4.jpeg",
+      "/Assets/Solvera (Bashundhara)/Angle-5.jpeg",
+      "/Assets/Solvera (Bashundhara)/Angle-6.jpeg"
     ],
     floorPlans: [
-      { title: "Type A (1,600 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" },
-      { title: "Type B (1,850 sft) - 3 Bed, 3 Bath", image: "https://images.unsplash.com/photo-1545464693-f1798a373343?auto=format&fit=crop&w=800&q=80" },
-      { title: "Type C (2,100 sft) - 3 Bed, 4 Bath", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" }
+      { title: "Type A (1,600 sft) - 3 Bed, 3 Bath", image: "/Assets/Solvera (Bashundhara)/ART-1.jpeg" },
+      { title: "Type B (1,850 sft) - 3 Bed, 3 Bath", image: "/Assets/Solvera (Bashundhara)/ART-2.jpeg" },
+      { title: "Type C (2,100 sft) - 3 Bed, 4 Bath", image: "/Assets/Solvera (Bashundhara)/ART-3.jpeg" }
     ],
     atAGlance: {
       landArea: "8.5 Katha",
