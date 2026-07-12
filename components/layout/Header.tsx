@@ -42,8 +42,8 @@ export default function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-cream-100/90 backdrop-blur-md py-3 shadow-sm border-b border-cream-300"
-            : "bg-transparent py-5"
+            ? "bg-cream-100/90 backdrop-blur-md py-2 shadow-sm border-b border-cream-300"
+            : "bg-transparent py-3"
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
@@ -59,7 +59,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav in a capsule container - dynamically colored */}
-          <nav className={`hidden md:flex items-center gap-4 px-5 py-2 rounded-full border transition-all duration-300 ${
+          <nav className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-full border transition-all duration-300 ${
             isScrolled 
               ? "border-cream-300 bg-cream-200/50" 
               : "border-white/10 bg-black/25"
@@ -70,19 +70,17 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-[10px] tracking-widest uppercase transition-colors relative py-1 px-3.5 font-bold ${
+                  className={`text-[10px] tracking-widest uppercase transition-all relative py-1.5 px-3.5 font-bold rounded-full z-10 ${
                     isActive
-                      ? (isScrolled ? "text-primary" : "text-white")
-                      : (isScrolled ? "text-cream-500 hover:text-primary" : "text-white/80 hover:text-white")
+                      ? "text-white"
+                      : (isScrolled ? "text-cream-500 hover:text-[#211E1A]" : "text-white/80 hover:text-white")
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
-                      layoutId="nav-underline"
-                      className={`absolute bottom-0 left-3.5 right-3.5 h-0.5 ${
-                        isScrolled ? "bg-primary" : "bg-white"
-                      }`}
+                      layoutId="active-nav-pill"
+                      className="absolute inset-0 bg-[#211E1A] rounded-full -z-10"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}

@@ -89,20 +89,20 @@ export default function Hero() {
           ref={searchWidgetRef}
           className="w-full flex justify-center pb-16 z-20"
         >
-          <div className="w-full max-w-4xl p-1.5 bg-cream-200 border border-cream-300 rounded-full shadow-lg relative overflow-hidden px-4">
+          <div className="w-full max-w-3xl p-1 bg-white/15 border border-white/25 rounded-full shadow-lg backdrop-blur-md relative overflow-hidden px-3">
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-2">
               
               {/* Select Area - Premium styling */}
-              <div className="w-full sm:flex-1 flex items-center gap-3 px-5 py-3 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
-                <MapPin className="text-primary flex-shrink-0" size={18} />
+              <div className="w-full sm:flex-1 flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group">
+                <MapPin className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[9px] md:text-[10px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
+                  <label className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5">
                     Select Area
                   </label>
                   <select
                     value={area}
                     onChange={(e) => setArea(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs md:text-sm focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
+                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
                   >
                     <option value="" className="bg-cream-100 text-cream-500">All Locations</option>
                     {areas.map((a) => (
@@ -114,16 +114,16 @@ export default function Hero() {
               </div>
 
               {/* Select Status - Premium styling */}
-              <div className="w-full sm:w-[35%] flex items-center gap-3 px-5 py-3 hover:bg-cream-100/50 rounded-full transition-colors cursor-pointer relative group">
-                <Building className="text-primary flex-shrink-0" size={18} />
+              <div className="w-full sm:w-[35%] flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group">
+                <Building className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
-                  <label className="block text-[9px] md:text-[10px] uppercase tracking-widest text-cream-550 font-bold mb-0.5">
+                  <label className="block text-[8px] md:text-[9px] uppercase tracking-widest text-cream-500 font-bold mb-0.5">
                     Project Status
                   </label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="bg-transparent text-foreground font-bold text-xs md:text-sm focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
+                    className="bg-transparent text-foreground font-bold text-xs focus:outline-none w-full cursor-pointer appearance-none pr-8 border-none p-0 relative z-10"
                   >
                     <option value="" className="bg-cream-100 text-cream-500">All Statuses</option>
                     <option value="ongoing" className="bg-cream-100 text-foreground">Ongoing Development</option>
@@ -137,9 +137,9 @@ export default function Hero() {
               <div className="w-full sm:w-auto p-1 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-7 py-3 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto px-5 py-2 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
                 >
-                  <Search size={14} />
+                  <Search size={12} />
                   Find Residencies
                 </button>
               </div>
