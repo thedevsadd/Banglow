@@ -91,6 +91,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   };
 
   const artImages = getArtImageUrls();
+  const suggestions = PROPERTIES.filter((p) => p.id !== property.id).slice(0, 3);
   
   // Interest form state
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
@@ -485,6 +486,74 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   </form>
                 )}
               </div>
+            </div>
+          </div>
+
+          {/* Suggested For You Section */}
+          <div className="mt-24 border-t border-cream-300 pt-16">
+            <span className="text-xs uppercase tracking-[0.25em] text-primary font-bold mb-3 block">
+              Suggested For You
+            </span>
+            <h3 className="font-serif text-3xl font-bold text-foreground mb-8">
+              Explore More Flagship Residences
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {suggestions.map((s) => (
+                <div
+                  key={s.id}
+                  className="h-[380px] w-full rounded-sm overflow-hidden relative group bg-cream-200 border border-cream-300 hover:border-primary/20 transition-all duration-300 shadow-md"
+                >
+                  <Link
+                    href={`/properties/${s.slug}`}
+                    className="block h-full w-full relative"
+                  >
+                    {/* Image */}
+                    <img
+                      src={s.heroImage}
+                      alt={s.name}
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-750 group-hover:scale-105"
+                    />
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    
+                    {/* Status */}
+                    <div className="absolute top-4 left-4 z-10">
+                      <span
+                        className={`text-[8px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-sm border backdrop-blur-md ${
+                          s.status === "ongoing"
+                            ? "bg-white/15 border-white/20 text-white"
+                            : "bg-white/80 border-white/30 text-foreground"
+                        }`}
+                      >
+                        {s.status}
+                      </span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                      <div className="flex items-center gap-1 text-white/60 text-[9px] mb-1.5">
+                        <MapPin size={9} />
+                        <span>{s.area}, Dhaka</span>
+                      </div>
+                      <h4 className="font-space-grotesk text-xl font-bold text-white leading-tight mb-1 tracking-tight">
+                        {s.name}
+                      </h4>
+                      <p className="text-white/60 text-[10px] font-light line-clamp-1 leading-relaxed mb-3">
+                        {s.tagline}
+                      </p>
+                      <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-1">
+                        <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest font-space-grotesk">
+                          From {formatBDTWord(s.pricing.totalPriceMin)}
+                        </span>
+                        <span className="text-[8px] font-extrabold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors flex items-center gap-1">
+                          View →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </div>
