@@ -197,14 +197,14 @@ function CheckoutContent({ slug }: { slug: string }) {
       
       {/* Step Banner */}
       {currentStep < 4 && (
-        <div className="flex items-center justify-between p-6 bg-cream-200 border border-cream-300 rounded-sm mb-12 shadow-xs">
-          <div className="flex items-center gap-4">
-            <span className="font-serif text-xl font-bold text-foreground uppercase tracking-wider">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 sm:p-6 bg-cream-200 border border-cream-300 rounded-sm mb-8 sm:mb-12 shadow-xs text-center sm:text-left">
+          <div>
+            <span className="font-serif text-lg sm:text-xl font-bold text-foreground uppercase tracking-wider block">
               {property.name} Reservation
             </span>
           </div>
           
-          <div className="flex gap-4 text-xs font-bold uppercase tracking-wider text-cream-500">
+          <div className="flex items-center gap-2 sm:gap-4 text-[9px] sm:text-xs font-bold uppercase tracking-wider text-cream-500">
             <span className={currentStep === 1 ? "text-primary" : ""}>01 Unit</span>
             <span>&rarr;</span>
             <span className={currentStep === 2 ? "text-primary" : ""}>02 Payment</span>
@@ -286,24 +286,26 @@ function CheckoutContent({ slug }: { slug: string }) {
               <h2 className="font-serif text-2xl font-bold text-foreground mb-6">Simulated Reservation Payment</h2>
               
               {/* Payment tabs */}
-              <div className="flex border-b border-cream-300 mb-6">
+              <div className="flex border-b border-cream-300 mb-6 w-full">
                 <button
                   onClick={() => setPaymentMethod("bank")}
                   type="button"
-                  className={`w-1/2 py-3 text-xs uppercase tracking-widest font-bold border-b-2 flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`w-1/2 py-3 text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest font-bold border-b-2 flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
                     paymentMethod === "bank" ? "border-primary text-primary" : "border-transparent text-cream-500 hover:text-foreground"
                   }`}
                 >
-                  <CreditCard size={14} /> Bank Wire Transfer
+                  <CreditCard size={13} className="flex-shrink-0" />
+                  <span>Bank <span className="hidden sm:inline">Wire</span> Transfer</span>
                 </button>
                 <button
                   onClick={() => setPaymentMethod("mfs")}
                   type="button"
-                  className={`w-1/2 py-3 text-xs uppercase tracking-widest font-bold border-b-2 flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`w-1/2 py-3 text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest font-bold border-b-2 flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
                     paymentMethod === "mfs" ? "border-primary text-primary" : "border-transparent text-cream-500 hover:text-foreground"
                   }`}
                 >
-                  <Smartphone size={14} /> Mobile Banking (MFS)
+                  <Smartphone size={13} className="flex-shrink-0" />
+                  <span>Mobile <span className="hidden sm:inline">Banking</span> (MFS)</span>
                 </button>
               </div>
 
@@ -515,30 +517,39 @@ function CheckoutContent({ slug }: { slug: string }) {
                 </div>
               </div>
 
-              {/* Time slot picker */}
+              {/* Time slot picker - premium selectable chips grid */}
               {meetingDateStr && (
                 <div>
-                  <label className="block text-[10px] uppercase tracking-wider text-cream-500 font-semibold mb-1">Available Hour</label>
-                  <select
-                    value={meetingTime}
-                    onChange={(e) => setMeetingTime(e.target.value)}
-                    className="w-full bg-background border border-cream-300 text-foreground text-xs px-3 py-2 rounded-sm focus:outline-none focus:border-primary cursor-pointer"
-                  >
-                    <option value="">Select Hour</option>
-                    {TIME_SLOTS.slice(0, 5).map(time => (
-                      <option key={time} value={time}>{time}</option>
-                    ))}
-                  </select>
+                  <label className="block text-[10px] uppercase tracking-wider text-cream-550 font-bold mb-2">Available Hour</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {TIME_SLOTS.slice(0, 6).map(time => {
+                      const isSelected = meetingTime === time;
+                      return (
+                        <button
+                          key={time}
+                          type="button"
+                          onClick={() => setMeetingTime(time)}
+                          className={`py-2 text-center text-xs font-semibold rounded-sm border transition-all cursor-pointer ${
+                            isSelected
+                              ? "bg-primary border-primary text-cream-100 font-bold shadow-xs"
+                              : "bg-background border-cream-300 text-foreground hover:border-primary/40"
+                          }`}
+                        >
+                          {time}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="flex gap-4 mt-8 pt-4 border-t border-cream-300">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 mt-8 pt-4 border-t border-cream-300">
             <button
               onClick={() => setCurrentStep(2)}
               type="button"
-              className="w-1/3 py-3 border border-cream-300 text-cream-500 hover:text-foreground bg-background text-xs font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+              className="w-full sm:w-1/3 py-3 border border-cream-300 text-cream-500 hover:text-foreground bg-background text-xs font-bold uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
             >
               Back
             </button>
@@ -546,7 +557,7 @@ function CheckoutContent({ slug }: { slug: string }) {
               disabled={!contactInfo.name || !contactInfo.email || !contactInfo.phone || !meetingDateStr || !meetingTime}
               onClick={() => setCurrentStep(4)}
               type="button"
-              className="w-2/3 py-3 bg-primary hover:bg-terracotta-600 disabled:bg-cream-100 disabled:text-cream-500 disabled:border-cream-300 disabled:cursor-not-allowed text-cream-100 font-bold uppercase tracking-widest text-xs border border-transparent rounded-sm transition-colors cursor-pointer shadow-xs"
+              className="w-full sm:w-2/3 py-3 bg-primary hover:bg-terracotta-600 disabled:bg-cream-100 disabled:text-cream-500 disabled:border-cream-300 disabled:cursor-not-allowed text-cream-100 font-bold uppercase tracking-widest text-xs border border-transparent rounded-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
             >
               Confirm Allotment Payment
             </button>
