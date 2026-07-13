@@ -90,10 +90,22 @@ export default function EngineeringSpecs() {
   };
 
   return (
-    <section className="bg-[#171513] py-24 relative overflow-hidden text-white border-t border-white/5">
+    <section className="bg-[#171513] py-24 relative overflow-visible text-white">
+      {/* Curved Top Divider - Matches organic hand-drawn arch */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-visible leading-[0] transform -translate-y-[99%] pointer-events-none z-0">
+        <svg
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="relative block w-full h-[30px] sm:h-[45px] md:h-[60px]"
+          fill="#171513"
+        >
+          <path d="M0,120 Q600,0 1200,120 Z" />
+        </svg>
+      </div>
+
       {/* Subtle blueprints lines background grid */}
       <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none overflow-hidden"
         style={{
           backgroundImage: `radial-gradient(circle, #fff 1px, transparent 1px)`,
           backgroundSize: "24px 24px",
