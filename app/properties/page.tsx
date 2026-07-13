@@ -126,7 +126,7 @@ function PropertyListingContent() {
 
       {/* Grid List */}
       {filteredProperties.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-24">
           {filteredProperties.map((property) => (
             <div
               key={property.id}
@@ -140,7 +140,7 @@ function PropertyListingContent() {
                 <img
                   src={property.heroImage}
                   alt={property.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-750 group-hover:scale-105"
                 />
 
                 {/* Gradient overlay at bottom for text legibility */}
