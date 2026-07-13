@@ -65,7 +65,7 @@ function PropertyListingContent() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-cream-100/90 backdrop-blur-md p-4 border border-cream-300 rounded-sm mb-12 flex flex-col lg:flex-row gap-4 justify-between items-center z-20 sticky top-20 shadow-sm">
+      <div className="bg-cream-100/90 backdrop-blur-md p-4 border border-cream-300 rounded-sm mb-12 flex flex-col lg:flex-row gap-4 justify-between items-center z-20">
         <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
           {/* Area filter */}
           <div className="flex items-center gap-2 bg-background border border-cream-300 px-3 py-2 rounded-sm text-sm">
@@ -130,69 +130,59 @@ function PropertyListingContent() {
           {filteredProperties.map((property) => (
             <div
               key={property.id}
-              className="group bg-cream-200 border border-cream-300 hover:border-primary/20 rounded-sm overflow-hidden flex flex-col transition-all duration-300 relative shadow-sm"
+              className="h-[420px] w-full rounded-sm overflow-hidden relative group bg-cream-200 border border-cream-300 hover:border-primary/20 transition-all duration-300 shadow-md"
             >
-              {/* Cover Image */}
-              <div className="relative h-64 w-full overflow-hidden">
+              <Link
+                href={`/properties/${property.slug}`}
+                className="block h-full w-full relative"
+              >
+                {/* Image — fills 100% height */}
                 <img
                   src={property.heroImage}
                   alt={property.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
                 />
-                
-                {/* Status */}
+
+                {/* Gradient overlay at bottom for text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+                {/* Status badge — top left */}
                 <div className="absolute top-4 left-4 z-10">
                   <span
-                    className={`text-[9px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-sm border ${
+                    className={`text-[8px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-sm border backdrop-blur-md ${
                       property.status === "ongoing"
-                        ? "bg-primary/10 border-primary/30 text-primary"
-                        : "bg-cream-100/90 border-cream-300 text-foreground"
-                    } backdrop-blur-md`}
+                        ? "bg-white/15 border-white/20 text-white"
+                        : "bg-white/80 border-white/30 text-foreground"
+                    }`}
                   >
                     {property.status}
                   </span>
                 </div>
 
-                {/* Pricing minimum */}
-                <div className="absolute bottom-4 right-4 z-10">
-                  <span className="text-xs font-bold bg-background/90 border border-cream-300 text-primary px-3 py-1.5 rounded-sm backdrop-blur-md">
-                    From {formatBDTWord(property.pricing.totalPriceMin)}
-                  </span>
-                </div>
-              </div>
-
-              {/* Data info */}
-              <div className="p-6 flex-grow flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-1.5 text-cream-500 text-xs mb-2">
-                    <MapPin size={12} className="text-primary" />
+                {/* Bottom overlay: property info */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                  <div className="flex items-center gap-1 text-white/60 text-[9px] mb-1.5">
+                    <MapPin size={9} />
                     <span>{property.area}, Dhaka</span>
                   </div>
-                  <h3 className="font-serif text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-space-grotesk text-xl font-bold text-white leading-tight mb-1 tracking-tight">
                     {property.name}
                   </h3>
-                  <p className="text-cream-500 text-sm font-light line-clamp-2 mb-6 leading-relaxed">
+                  <p className="text-white/60 text-[10px] font-light line-clamp-2 leading-relaxed mb-4">
                     {property.tagline}
                   </p>
-                </div>
-
-                <div className="border-t border-cream-300 pt-4 mt-auto">
-                  <div className="flex justify-between items-center text-xs text-cream-500 mb-6">
-                    <div className="flex items-center gap-1">
-                      <Minimize2 size={12} className="text-primary" />
-                      <span>{property.atAGlance.unitSizeRange}</span>
-                    </div>
-                    <span>{property.atAGlance.floors} Floors</span>
+                  
+                  {/* Price tag inline with "View" link */}
+                  <div className="flex items-center justify-between border-t border-white/10 pt-3 mt-1">
+                    <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest font-space-grotesk">
+                      From {formatBDTWord(property.pricing.totalPriceMin)}
+                    </span>
+                    <span className="text-[8px] font-extrabold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors flex items-center gap-1">
+                      View →
+                    </span>
                   </div>
-
-                  <Link
-                    href={`/properties/${property.slug}`}
-                    className="w-full text-center block py-3 rounded-sm border border-cream-300 text-foreground group-hover:border-primary group-hover:bg-primary group-hover:text-cream-100 font-bold text-xs uppercase tracking-widest transition-all duration-300 cursor-pointer"
-                  >
-                    View Details
-                  </Link>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
