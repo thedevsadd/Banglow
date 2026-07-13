@@ -93,9 +93,10 @@ function TrackContent() {
           </div>
           <button
             type="submit"
-            className="px-6 py-3 bg-primary hover:bg-terracotta-600 text-cream-100 font-bold uppercase tracking-wider text-xs rounded-sm transition-colors cursor-pointer shadow-xs"
+            className="px-6 py-3 bg-primary hover:bg-terracotta-600 text-cream-100 font-bold uppercase tracking-wider text-xs rounded-sm transition-colors cursor-pointer shadow-xs whitespace-nowrap"
           >
-            Track Status
+            <span className="hidden sm:inline">Track Status</span>
+            <span className="inline sm:hidden">Track</span>
           </button>
         </form>
       </div>
