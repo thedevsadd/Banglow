@@ -39,15 +39,17 @@ export default function FeaturedGrid() {
 
   const trackRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  
   const isAnimating = useRef(false);
+  const isResetting = useRef(false);
 
   const prev = () => {
-    if (isAnimating.current) return;
+    if (isAnimating.current || isResetting.current) return;
     setActiveIndex((prevIndex) => prevIndex - 1);
   };
 
   const next = () => {
-    if (isAnimating.current) return;
+    if (isAnimating.current || isResetting.current) return;
     setActiveIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -60,12 +62,34 @@ export default function FeaturedGrid() {
     const gap = 20; // gap-5 is 20px
     const offset = -activeIndex * (cardWidth + gap);
 
+    // If we are currently resetting the loop index, apply styles instantly and skip animation
+    if (isResetting.current) {
+      isResetting.current = false;
+      
+      // Set instant card states matching the current index
+      tripledProperties.forEach((_, idx) => {
+        const card = cardRefs.current[idx];
+        if (!card) return;
+
+        if (idx === activeIndex) {
+          gsap.set(card, { scale: 1, opacity: 1, filter: "blur(0px)", pointerEvents: "auto" });
+        } else if (idx === activeIndex + 1) {
+          gsap.set(card, { scale: 0.96, opacity: 0.35, filter: "blur(2px)", pointerEvents: "none" });
+        } else if (idx === activeIndex + 2) {
+          gsap.set(card, { scale: 0.92, opacity: 0.15, filter: "blur(4px)", pointerEvents: "none" });
+        } else {
+          gsap.set(card, { scale: 0.88, opacity: 0, filter: "blur(8px)", pointerEvents: "none" });
+        }
+      });
+      return;
+    }
+
     isAnimating.current = true;
 
     // Slide track container
     gsap.to(track, {
       x: offset,
-      duration: 0.8,
+      duration: 0.85,
       ease: "power4.out",
       onComplete: () => {
         isAnimating.current = false;
@@ -74,12 +98,14 @@ export default function FeaturedGrid() {
         // If activeIndex moves into the third set (>= 8), set back to middle set (4)
         if (activeIndex >= baseCount * 2) {
           const resetIndex = activeIndex - baseCount;
+          isResetting.current = true;
           gsap.set(track, { x: -resetIndex * (cardWidth + gap) });
           setActiveIndex(resetIndex);
         }
         // If activeIndex moves into the first set (<= 3), set back to middle set (7)
         if (activeIndex < baseCount) {
           const resetIndex = activeIndex + baseCount;
+          isResetting.current = true;
           gsap.set(track, { x: -resetIndex * (cardWidth + gap) });
           setActiveIndex(resetIndex);
         }
@@ -98,7 +124,7 @@ export default function FeaturedGrid() {
           opacity: 1,
           filter: "blur(0px)",
           pointerEvents: "auto",
-          duration: 0.8,
+          duration: 0.85,
           ease: "power4.out",
         });
       } else if (idx === activeIndex + 1) {
@@ -106,9 +132,9 @@ export default function FeaturedGrid() {
         gsap.to(card, {
           scale: 0.96,
           opacity: 0.35,
-          filter: "blur(2px)",
+          filter: "blur(2.5px)",
           pointerEvents: "none",
-          duration: 0.8,
+          duration: 0.85,
           ease: "power4.out",
         });
       } else if (idx === activeIndex + 2) {
@@ -116,9 +142,9 @@ export default function FeaturedGrid() {
         gsap.to(card, {
           scale: 0.92,
           opacity: 0.15,
-          filter: "blur(4px)",
+          filter: "blur(5px)",
           pointerEvents: "none",
-          duration: 0.8,
+          duration: 0.85,
           ease: "power4.out",
         });
       } else {
@@ -128,7 +154,7 @@ export default function FeaturedGrid() {
           opacity: 0,
           filter: "blur(8px)",
           pointerEvents: "none",
-          duration: 0.8,
+          duration: 0.85,
           ease: "power4.out",
         });
       }
@@ -220,13 +246,13 @@ export default function FeaturedGrid() {
               </p>
             </div>
 
-            {/* Bottom link */}
+            {/* Bottom link - Redesigned as a premium capsule button */}
             <div className="relative z-10">
               <Link
                 href="/properties"
-                className="inline-flex items-center gap-1.5 text-[9px] text-white/40 hover:text-white uppercase tracking-widest font-bold transition-colors group"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-white/15 bg-white/5 text-white hover:bg-white hover:text-[#211E1A] transition-all duration-300 text-[10px] uppercase tracking-widest font-extrabold group w-full"
               >
-                Explore All Properties
+                Explore Properties
                 <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
