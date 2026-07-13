@@ -23,12 +23,9 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
     notFound();
   }
 
-  // Active image state
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [imageLoading, setImageLoading] = useState(false);
   const [activeLoaded, setActiveLoaded] = useState(false);
-  
-  // Lightbox modal state for architectural visual detail popup
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [zoomStyle, setZoomStyle] = useState<React.CSSProperties>({ transform: "scale(1)", transformOrigin: "center" });
 
@@ -73,7 +70,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
     return `banglow-${property.slug}-${nameWithoutExtension}.jpeg`;
   };
   
-  // Dynamically resolve ART-1 to ART-6 images paths based on the gallery folder path
   const getArtImageUrls = () => {
     if (!property.gallery || property.gallery.length === 0) return [];
     const firstUrl = property.gallery[0];
@@ -93,11 +89,9 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   const artImages = getArtImageUrls();
   const suggestions = PROPERTIES.filter((p) => p.id !== property.id).slice(0, 3);
   
-  // Interest form state
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Set loading state with a delay to prevent flickering on cached assets
   useEffect(() => {
     setActiveLoaded(false);
     
@@ -141,7 +135,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
     setFormSubmitted(true);
   };
 
-  // Map Iframe URL construction (Dhaka local coordinates)
   const mapLat = property.location.lat;
   const mapLng = property.location.lng;
   const mapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${mapLng - 0.003}%2C${mapLat - 0.003}%2C${mapLng + 0.003}%2C${mapLat + 0.003}&layer=mapnik&marker=${mapLat}%2C${mapLng}`;
@@ -150,7 +143,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
     <>
       <main className="flex-grow pt-28 pb-20 bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Back button */}
           <Link
             href="/properties"
             className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-primary hover:text-terracotta-600 font-bold mb-8"
@@ -158,7 +150,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             <ArrowLeft size={14} /> Back to Collection
           </Link>
 
-          {/* Title block */}
           <div className="mb-10">
             <div className="flex flex-wrap items-center gap-2 text-cream-500 text-sm mb-3">
               <MapPin size={16} className="text-primary" />
@@ -183,17 +174,12 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             </p>
           </div>
 
-          {/* Grid Layout: Left Gallery + Info, Right Sticky Panel */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             
-            {/* Left Column (8 cols) */}
             <div className="lg:col-span-8 flex flex-col gap-12">
               
-              {/* Photo Carousel */}
               <div className="relative group w-full bg-cream-200 border border-cream-300 rounded-sm overflow-hidden shadow-sm">
                 <div className="relative aspect-video w-full overflow-hidden">
-                  
-                  {/* Elegant Loading Spinner Overlay */}
                   {imageLoading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-cream-200/85 backdrop-blur-xs z-10 transition-opacity duration-300">
                       <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
@@ -217,7 +203,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                     />
                   </AnimatePresence>
                   
-                  {/* Left / Right Nav buttons */}
                   {property.gallery.length > 1 && (
                     <>
                       <button
@@ -236,7 +221,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   )}
                 </div>
 
-                {/* Thumbnails strip - dynamic equal width columns grid */}
                 {property.gallery.length > 1 && (
                   <div 
                     className="grid gap-2 p-3 bg-cream-100 border-t border-cream-300 w-full"
@@ -257,7 +241,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 )}
               </div>
 
-              {/* Description */}
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-4">Architectural Narrative</h3>
                 <p className="text-cream-500 font-light text-base leading-relaxed">
@@ -265,7 +248,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </p>
               </div>
 
-              {/* Architectural Showcase Gallery */}
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Architectural Visuals</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
@@ -287,7 +269,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </div>
               </div>
 
-              {/* Unit Availability Grid */}
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Unit Allocation & Pricing</h3>
                 <div className="overflow-x-auto border border-cream-300 rounded-sm shadow-sm">
@@ -331,14 +312,12 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </div>
               </div>
 
-              {/* Location Map Section */}
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-2">Location Coordinates</h3>
                 <p className="text-cream-500 text-sm mb-6 font-light">
                   {property.fullAddress}
                 </p>
                 <div className="h-[350px] w-full border border-cream-300 rounded-sm overflow-hidden relative shadow-sm">
-                  {/* OSM Embed - styled in pure light layout */}
                   <iframe
                     title="OpenStreetMap Embed"
                     src={mapUrl}
@@ -346,7 +325,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                     style={{ border: 0 }}
                     loading="lazy"
                   />
-                  {/* Subtle Map Card Floating */}
                   <div className="absolute bottom-4 left-4 z-10 bg-cream-100/90 backdrop-blur-md p-4 rounded-sm border border-cream-300 max-w-xs pointer-events-none shadow-md">
                     <span className="text-[10px] text-primary uppercase tracking-widest font-bold">Location Coordinates</span>
                     <h4 className="font-serif text-base font-bold text-foreground mt-1">{property.name}</h4>
@@ -356,10 +334,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               </div>
             </div>
 
-            {/* Right Column (4 cols) - At a Glance Sticky */}
             <div className="lg:col-span-4 lg:sticky lg:top-28 flex flex-col gap-8">
-              
-              {/* At a Glance Box */}
               <div className="bg-cream-200 border border-cream-300 p-6 rounded-sm shadow-sm">
                 <h3 className="font-serif text-base font-bold text-foreground mb-6 uppercase tracking-wider border-b border-cream-300 pb-3 flex items-center gap-2">
                   <Info size={16} className="text-primary" /> At a Glance
@@ -422,7 +397,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </div>
               </div>
 
-              {/* Lead/Interest Form */}
               <div className="bg-cream-200 border border-cream-300 p-6 rounded-sm shadow-sm">
                 <h3 className="font-serif text-lg font-bold text-foreground mb-4">Request Callback</h3>
                 {formSubmitted ? (
@@ -489,7 +463,6 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             </div>
           </div>
 
-          {/* Suggested For You Section */}
           <div className="mt-24 border-t border-cream-300 pt-16">
             <span className="text-xs uppercase tracking-[0.25em] text-primary font-bold mb-3 block">
               Suggested For You

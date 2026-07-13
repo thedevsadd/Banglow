@@ -43,24 +43,15 @@ function CheckoutContent({ slug }: { slug: string }) {
   const [currentStep, setCurrentStep] = useState(1); // 1: Unit, 2: Payment, 3: Details & Meet, 4: Verification, 5: Success
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
   
-  // Payment state
   const [paymentMethod, setPaymentMethod] = useState<"bank" | "mfs">("bank");
   const [transactionRef, setTransactionRef] = useState("");
-  
-  // Contact & Meeting state
   const [contactInfo, setContactInfo] = useState({ name: "", email: "", phone: "" });
   const [meetingDateStr, setMeetingDateStr] = useState("");
   const [meetingTime, setMeetingTime] = useState("");
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-
-  // Verification timer state
   const [secondsLeft, setSecondsLeft] = useState(60);
   const [verificationLog, setVerificationLog] = useState("Verifying transaction details...");
-
-  // Created booking reference
   const [createdBooking, setCreatedBooking] = useState<Booking | null>(null);
-
-  // Set initial unit if passed in query
   useEffect(() => {
     if (initialUnitId) {
       const u = property.units.find(x => x.id === initialUnitId);
@@ -94,7 +85,6 @@ function CheckoutContent({ slug }: { slug: string }) {
     setCurrentStep(5);
   }, [selectedUnit, property.id, property.pricing.bookingMoneyPercent, contactInfo, paymentMethod, meetingDateStr, meetingTime]);
 
-  // Run 60-second timer in Step 4
   useEffect(() => {
     if (currentStep !== 4) return;
 
@@ -122,7 +112,6 @@ function CheckoutContent({ slug }: { slug: string }) {
     return () => clearInterval(interval);
   }, [currentStep, handleFinishVerification]);
 
-  // Calendar Helpers for Discussion meeting
   const getDaysInMonth = (date: Date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   };
@@ -195,7 +184,6 @@ function CheckoutContent({ slug }: { slug: string }) {
   return (
     <div className="max-w-4xl mx-auto px-6">
       
-      {/* Step Banner */}
       {currentStep < 4 && (
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 sm:p-6 bg-cream-200 border border-cream-300 rounded-sm mb-8 sm:mb-12 shadow-xs text-center sm:text-left">
           <div>
@@ -214,7 +202,6 @@ function CheckoutContent({ slug }: { slug: string }) {
         </div>
       )}
 
-      {/* STEP 1: Unit Selection */}
       {currentStep === 1 && (
         <div className="flex flex-col gap-8">
           <div>
@@ -276,11 +263,8 @@ function CheckoutContent({ slug }: { slug: string }) {
         </div>
       )}
 
-      {/* STEP 2: Payment Details */}
       {currentStep === 2 && selectedUnit && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Main payment columns */}
           <div className="lg:col-span-8 flex flex-col gap-6">
             <div className="bg-cream-200 border border-cream-300 p-6 rounded-sm shadow-sm">
               <h2 className="font-serif text-2xl font-bold text-foreground mb-6">Simulated Reservation Payment</h2>
@@ -309,7 +293,6 @@ function CheckoutContent({ slug }: { slug: string }) {
                 </button>
               </div>
 
-              {/* Warning box */}
               <div className="p-4 bg-terracotta-50 border border-terracotta-200 rounded-sm text-xs text-terracotta-700 flex items-start gap-2.5 mb-6">
                 <ShieldAlert className="text-primary flex-shrink-0 mt-0.5" size={16} />
                 <div>
@@ -320,7 +303,6 @@ function CheckoutContent({ slug }: { slug: string }) {
                 </div>
               </div>
 
-              {/* Bank Details View */}
               {paymentMethod === "bank" ? (
                 <div className="flex flex-col gap-4">
                   <div className="bg-background p-5 border border-cream-300 rounded-sm">
@@ -360,7 +342,6 @@ function CheckoutContent({ slug }: { slug: string }) {
                   </div>
                 </div>
               ) : (
-                /* MFS Details View */
                 <div className="flex flex-col gap-4">
                   <div className="bg-background p-5 border border-cream-300 rounded-sm">
                     <span className="text-[10px] uppercase tracking-widest text-primary font-bold block mb-3">bKash / Nagad Wallet Account</span>
@@ -388,7 +369,6 @@ function CheckoutContent({ slug }: { slug: string }) {
             </div>
           </div>
 
-          {/* Right column: pricing break-down */}
           <div className="lg:col-span-4 bg-cream-200 border border-cream-300 p-6 rounded-sm flex flex-col justify-between min-h-[380px] shadow-sm">
             <div>
               <h3 className="font-serif text-lg font-bold text-foreground border-b border-cream-300 pb-3 mb-6 uppercase tracking-wider">
@@ -444,7 +424,6 @@ function CheckoutContent({ slug }: { slug: string }) {
         </div>
       )}
 
-      {/* STEP 3: Details & Meeting scheduling */}
       {currentStep === 3 && selectedUnit && (
         <div className="bg-cream-200 border border-cream-300 p-8 rounded-sm max-w-2xl mx-auto shadow-sm">
           <h2 className="font-serif text-2xl font-bold text-foreground mb-6 border-b border-cream-300 pb-4">
@@ -453,7 +432,6 @@ function CheckoutContent({ slug }: { slug: string }) {
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             
-            {/* Contact details */}
             <div className="md:col-span-6 flex flex-col gap-4">
               <h3 className="text-xs uppercase tracking-widest text-primary font-bold border-b border-cream-300 pb-1.5 mb-2">
                 Allotment Owner Details
@@ -496,7 +474,6 @@ function CheckoutContent({ slug }: { slug: string }) {
               </div>
             </div>
 
-            {/* Discussion meeting calendar */}
             <div className="md:col-span-6 flex flex-col gap-4">
               <h3 className="text-xs uppercase tracking-widest text-primary font-bold border-b border-cream-300 pb-1.5 mb-2">
                 Allotment Meeting slot
@@ -507,7 +484,6 @@ function CheckoutContent({ slug }: { slug: string }) {
                 <span>{currentMonth.toLocaleString("default", { month: "long", year: "numeric" })}</span>
               </div>
 
-              {/* Simple inline calendar */}
               <div className="p-3 bg-background border border-cream-300 rounded-sm">
                 <div className="grid grid-cols-7 gap-1 text-center text-[8px] text-cream-500 font-bold mb-1">
                   <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
@@ -565,10 +541,8 @@ function CheckoutContent({ slug }: { slug: string }) {
         </div>
       )}
 
-      {/* STEP 4: 60-Second Simulated Verification */}
       {currentStep === 4 && (
         <div className="bg-cream-200 border border-cream-300 p-12 rounded-sm max-w-md mx-auto text-center flex flex-col items-center justify-center shadow-sm">
-          {/* Circular Countdown Loader */}
           <div className="relative w-36 h-36 flex items-center justify-center mb-8">
             <svg className="w-full h-full transform -rotate-90">
               <circle
@@ -609,7 +583,6 @@ function CheckoutContent({ slug }: { slug: string }) {
         </div>
       )}
 
-      {/* STEP 5: Success & Invoice Download */}
       {currentStep === 5 && createdBooking && (
         <div className="max-w-2xl mx-auto bg-cream-200 border border-cream-300 p-8 rounded-sm text-center relative overflow-hidden shadow-sm">
           
