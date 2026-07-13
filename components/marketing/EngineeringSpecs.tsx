@@ -107,7 +107,7 @@ export default function EngineeringSpecs() {
           <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-extrabold mb-3 block">
             Technical Standards
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-semibold text-white leading-tight">
+          <h2 className="font-space-grotesk text-3xl md:text-5xl font-bold text-white leading-tight tracking-tight">
             Engineering the Intangible
           </h2>
           <p className="text-white/45 font-light text-xs sm:text-sm mt-4 leading-relaxed max-w-xl">
@@ -145,7 +145,7 @@ export default function EngineeringSpecs() {
                   <span className="text-[8px] uppercase tracking-[0.25em] text-white/35 font-extrabold block mb-2 font-space-grotesk">
                     {spec.label}
                   </span>
-                  <h3 className="font-serif text-xl font-bold mb-4 group-hover:text-white transition-colors">
+                  <h3 className="font-space-grotesk text-lg font-bold mb-4 group-hover:text-white transition-colors tracking-tight">
                     {spec.title}
                   </h3>
                   <p className="text-white/45 font-light text-xs leading-relaxed max-w-[280px]">

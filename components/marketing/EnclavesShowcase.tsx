@@ -127,7 +127,7 @@ export default function EnclavesShowcase() {
           <span className={`text-[10px] uppercase tracking-[0.3em] font-extrabold mb-3 block transition-colors duration-500 ${mutedTextClass}`}>
             Design Anatomy
           </span>
-          <h2 className={`font-serif text-3xl md:text-5xl font-semibold leading-tight transition-colors duration-500 ${textClass}`}>
+          <h2 className={`font-space-grotesk text-3xl md:text-5xl font-bold tracking-tight leading-tight transition-colors duration-500 ${textClass}`}>
             Crafting the Silent Landmark
           </h2>
         </div>
@@ -166,7 +166,7 @@ export default function EnclavesShowcase() {
 
                     {/* Title & Desc */}
                     <div className="flex-grow">
-                      <h3 className={`font-serif text-xl sm:text-2xl font-bold mb-2 transition-colors duration-500 ${
+                      <h3 className={`font-space-grotesk text-lg sm:text-xl font-bold mb-2 tracking-tight transition-colors duration-500 ${
                         isActive ? textClass : "text-foreground/75 group-hover:text-primary"
                       }`}>
                         {stage.title}
