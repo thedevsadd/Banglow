@@ -330,7 +330,7 @@ export default function FeaturedGrid() {
 
           {/* ───── RIGHT PROPERTY CAROUSEL ───── */}
           <div 
-            className="flex-1 overflow-hidden h-[420px] touch-pan-y"
+            className="w-full lg:flex-1 overflow-hidden h-[420px] touch-pan-y"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
