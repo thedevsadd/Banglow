@@ -30,6 +30,48 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   
   // Lightbox modal state for architectural visual detail popup
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [zoomStyle, setZoomStyle] = useState<React.CSSProperties>({ transform: "scale(1)", transformOrigin: "center" });
+
+  const handlePointerMove = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+    
+    let clientX = 0;
+    let clientY = 0;
+    
+    if ("touches" in e) {
+      if (e.touches.length === 0) return;
+      clientX = e.touches[0].clientX;
+      clientY = e.touches[0].clientY;
+    } else {
+      clientX = e.clientX;
+      clientY = e.clientY;
+    }
+    
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+    
+    setZoomStyle({
+      transform: "scale(2.5)",
+      transformOrigin: `${x}% ${y}%`,
+      transition: "transform 0.1s ease-out, transform-origin 0.1s ease-out"
+    });
+  };
+
+  const handlePointerLeave = () => {
+    setZoomStyle({
+      transform: "scale(1)",
+      transformOrigin: "center",
+      transition: "transform 0.25s ease-out, transform-origin 0.25s ease-out"
+    });
+  };
+
+  const getDownloadFilename = (url: string) => {
+    const parts = url.split("/");
+    const filename = parts[parts.length - 1]; // e.g. "ART-1.jpeg"
+    const nameWithoutExtension = filename.split(".")[0].toLowerCase(); // e.g. "art-1"
+    return `banglow-${property.slug}-${nameWithoutExtension}.jpeg`;
+  };
   
   // Dynamically resolve ART-1 to ART-6 images paths based on the gallery folder path
   const getArtImageUrls = () => {
@@ -458,11 +500,19 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
             className="relative bg-cream-100 border border-cream-300 p-2 max-w-4xl w-full rounded-sm max-h-[85vh] overflow-hidden flex flex-col justify-between shadow-2xl cursor-default"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-video w-full bg-background flex items-center justify-center rounded-sm overflow-hidden">
+            <div 
+              className="relative aspect-video w-full bg-background flex items-center justify-center rounded-sm overflow-hidden cursor-zoom-in"
+              onMouseMove={handlePointerMove}
+              onMouseLeave={handlePointerLeave}
+              onTouchMove={handlePointerMove}
+              onTouchEnd={handlePointerLeave}
+              onTouchStart={handlePointerMove}
+            >
               <img
                 src={lightboxImage}
                 alt="Architectural Visual Enlarge"
-                className="max-h-[70vh] max-w-full object-contain"
+                style={zoomStyle}
+                className="max-h-[70vh] max-w-full object-contain pointer-events-none"
               />
             </div>
             
@@ -470,12 +520,22 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               <h4 className="font-serif text-sm font-bold text-foreground">
                 Architectural Detail View
               </h4>
-              <button
-                onClick={() => setLightboxImage(null)}
-                className="px-4 py-2 border border-cream-300 text-foreground hover:text-primary hover:border-primary text-[10px] uppercase tracking-widest font-bold transition-colors cursor-pointer bg-background"
-              >
-                Close
-              </button>
+              <div className="flex gap-3">
+                <a
+                  href={lightboxImage}
+                  download={getDownloadFilename(lightboxImage)}
+                  onClick={(e) => e.stopPropagation()}
+                  className="px-4 py-2 border border-cream-300 bg-primary text-cream-100 hover:bg-terracotta-600 hover:border-primary text-[10px] uppercase tracking-widest font-bold transition-colors cursor-pointer flex items-center gap-1.5"
+                >
+                  Download
+                </a>
+                <button
+                  onClick={() => setLightboxImage(null)}
+                  className="px-4 py-2 border border-cream-300 text-foreground hover:text-primary hover:border-primary text-[10px] uppercase tracking-widest font-bold transition-colors cursor-pointer bg-background"
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
