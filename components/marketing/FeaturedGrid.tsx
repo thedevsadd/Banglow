@@ -112,7 +112,7 @@ export default function FeaturedGrid() {
 
               {/* Trust Number */}
               <div className="mb-2">
-                <span className="font-poppins text-[38px] font-extrabold text-white tracking-tight leading-none">
+                <span className="font-space-grotesk text-[38px] font-extrabold text-white tracking-tight leading-none">
                   150k+
                 </span>
               </div>

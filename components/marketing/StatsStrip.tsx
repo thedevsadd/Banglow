@@ -76,7 +76,7 @@ export default function StatsStrip() {
             key={idx}
             className="flex flex-col items-center justify-center border-r last:border-r-0 border-cream-300 last:border-none px-4"
           >
-            <div className="font-poppins text-lg sm:text-xl md:text-2xl font-extrabold text-foreground mb-0.5 tracking-tight">
+            <div className="font-space-grotesk text-lg sm:text-xl md:text-2xl font-extrabold text-foreground mb-0.5 tracking-tight">
               <Ticker value={stat.value} suffix={stat.suffix} />
             </div>
             <div className="text-[8px] sm:text-[9px] uppercase tracking-[0.2em] text-cream-500 font-extrabold text-center mt-0.5 leading-none">
