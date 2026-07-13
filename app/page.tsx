@@ -2,6 +2,8 @@ import Hero from "@/components/marketing/Hero";
 import StatsStrip from "@/components/marketing/StatsStrip";
 import FeaturedGrid from "@/components/marketing/FeaturedGrid";
 import WhyUs from "@/components/marketing/WhyUs";
+import EnclavesShowcase from "@/components/marketing/EnclavesShowcase";
+import EngineeringSpecs from "@/components/marketing/EngineeringSpecs";
 import Link from "next/link";
 import { ArrowRight, Calendar, UserCheck } from "lucide-react";
 
@@ -55,6 +57,12 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Curated Enclaves Neighborhood Showcase */}
+        <EnclavesShowcase />
+
+        {/* Technical Standards Specifications */}
+        <EngineeringSpecs />
       </main>
     </>
   );
