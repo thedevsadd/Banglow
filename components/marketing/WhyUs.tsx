@@ -28,9 +28,26 @@ export default function WhyUs() {
   ];
 
   return (
-    <section className="bg-background py-24 border-t border-cream-300 relative">
-      {/* Subtle top edge gradient fade for visual depth */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/[0.05] to-transparent pointer-events-none" />
+    <section className="bg-background py-24 relative overflow-visible">
+      {/* Wavy Top Divider filled with a soft black-to-transparent gradient */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-visible leading-[0] transform -translate-y-[99%] pointer-events-none z-0">
+        <svg
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="relative block w-full h-[40px] sm:h-[50px] md:h-[65px]"
+        >
+          <defs>
+            <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#1c1a17" stopOpacity="0.06" />
+              <stop offset="100%" stopColor="#1c1a17" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path 
+            d="M0,30 C150,45 350,15 600,60 C850,105 1050,45 1200,30 L1200,120 L0,120 Z" 
+            fill="url(#wave-gradient)" 
+          />
+        </svg>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
