@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PROPERTIES } from "@/lib/data/properties";
@@ -9,6 +9,7 @@ import {
   MapPin, ChevronLeft, ChevronRight, CheckCircle, Info, Send, 
   ArrowLeft 
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PropertyDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
   // Active image state
   const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
   
   // Floorplan modal state
   const [activeFloorplan, setActiveFloorplan] = useState<number | null>(null);
@@ -31,6 +33,11 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   // Interest form state
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  // Set loading true when image changes
+  useEffect(() => {
+    setImageLoading(true);
+  }, [activeImageIdx]);
 
   const handleNextImage = () => {
     setActiveImageIdx((prev) => (prev === property.gallery.length - 1 ? 0 : prev + 1));
@@ -108,25 +115,41 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               
               {/* Photo Carousel */}
               <div className="relative group w-full bg-cream-200 border border-cream-300 rounded-sm overflow-hidden shadow-sm">
-                <div className="relative aspect-video w-full">
-                  <img
-                    src={property.gallery[activeImageIdx] || property.heroImage}
-                    alt={`${property.name} interior preview`}
-                    className="w-full h-full object-cover transition-all duration-500"
-                  />
+                <div className="relative aspect-video w-full overflow-hidden">
+                  
+                  {/* Elegant Loading Spinner Overlay */}
+                  {imageLoading && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-cream-200/80 backdrop-blur-xs z-10">
+                      <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
+                    </div>
+                  )}
+
+                  <AnimatePresence initial={false} mode="popLayout">
+                    <motion.img
+                      key={activeImageIdx}
+                      src={property.gallery[activeImageIdx] || property.heroImage}
+                      alt={`${property.name} interior preview`}
+                      initial={{ opacity: 0, scale: 1.01 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.99 }}
+                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+                      onLoad={() => setImageLoading(false)}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </AnimatePresence>
                   
                   {/* Left / Right Nav buttons */}
                   {property.gallery.length > 1 && (
                     <>
                       <button
                         onClick={handlePrevImage}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-cream-100/90 border border-cream-300 text-foreground hover:text-primary hover:border-primary transition-colors opacity-0 group-hover:opacity-100 shadow-md"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-cream-100/90 border border-cream-300 text-foreground hover:text-primary hover:border-primary transition-all opacity-0 group-hover:opacity-100 shadow-md z-15 cursor-pointer active:scale-95"
                       >
                         <ChevronLeft size={20} />
                       </button>
                       <button
                         onClick={handleNextImage}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-cream-100/90 border border-cream-300 text-foreground hover:text-primary hover:border-primary transition-colors opacity-0 group-hover:opacity-100 shadow-md"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-cream-100/90 border border-cream-300 text-foreground hover:text-primary hover:border-primary transition-all opacity-0 group-hover:opacity-100 shadow-md z-15 cursor-pointer active:scale-95"
                       >
                         <ChevronRight size={20} />
                       </button>
@@ -134,15 +157,18 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   )}
                 </div>
 
-                {/* Thumbnails strip */}
+                {/* Thumbnails strip - dynamic equal width columns grid */}
                 {property.gallery.length > 1 && (
-                  <div className="flex gap-2 p-3 bg-cream-100 overflow-x-auto border-t border-cream-300">
+                  <div 
+                    className="grid gap-2 p-3 bg-cream-100 border-t border-cream-300 w-full"
+                    style={{ gridTemplateColumns: `repeat(${property.gallery.length}, minmax(0, 1fr))` }}
+                  >
                     {property.gallery.map((imgUrl, idx) => (
                       <button
                         key={idx}
                         onClick={() => setActiveImageIdx(idx)}
-                        className={`w-20 h-14 relative flex-shrink-0 border rounded-sm overflow-hidden ${
-                          activeImageIdx === idx ? "border-primary" : "border-cream-300 hover:border-cream-450"
+                        className={`w-full h-14 relative border rounded-sm overflow-hidden transition-all duration-300 ${
+                          activeImageIdx === idx ? "border-primary ring-1 ring-primary/30" : "border-cream-300 hover:border-cream-450"
                         }`}
                       >
                         <img src={imgUrl} className="w-full h-full object-cover" alt="" />
