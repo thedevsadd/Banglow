@@ -31,6 +31,9 @@ export default function Header() {
     }, 0);
   }, [pathname]);
 
+  const isHome = pathname === "/";
+  const useDarkHeaderStyle = isScrolled || !isHome;
+
   const navLinks = [
     { name: "Properties", href: "/properties" },
     { name: "About", href: "/about" },
@@ -41,7 +44,7 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+          useDarkHeaderStyle
             ? "bg-cream-100/90 backdrop-blur-md py-2 shadow-sm border-b border-cream-300"
             : "bg-transparent py-3"
         }`}
@@ -51,7 +54,7 @@ export default function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={`md:hidden p-2 focus:outline-none transition-colors duration-300 z-10 ${
-              isScrolled ? "text-[#211E1A]" : "text-white"
+              useDarkHeaderStyle ? "text-[#211E1A]" : "text-white"
             }`}
             aria-label="Toggle menu"
           >
@@ -67,14 +70,14 @@ export default function Header() {
               src="/Assets/Logo-Banglow.png" 
               alt="Banglow Logo" 
               className={`h-11 w-auto object-contain transition-all duration-300 group-hover:scale-102 ${
-                isScrolled ? "" : "brightness-0 invert"
+                useDarkHeaderStyle ? "" : "brightness-0 invert"
               }`} 
             />
           </Link>
  
           {/* Desktop Nav in a capsule container - dynamically colored */}
           <nav className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-full border transition-all duration-300 ${
-            isScrolled 
+            useDarkHeaderStyle 
               ? "border-cream-300 bg-cream-200/50" 
               : "border-white/10 bg-black/25"
           } backdrop-blur-md shadow-xs`}>
@@ -87,7 +90,7 @@ export default function Header() {
                   className={`text-[10px] tracking-widest uppercase transition-all relative py-1.5 px-3.5 font-bold rounded-full z-10 ${
                     isActive
                       ? "text-white"
-                      : (isScrolled ? "text-cream-500 hover:text-[#211E1A]" : "text-white/80 hover:text-white")
+                      : (useDarkHeaderStyle ? "text-cream-500 hover:text-[#211E1A]" : "text-white/80 hover:text-white")
                   }`}
                 >
                   {link.name}
@@ -110,7 +113,7 @@ export default function Header() {
             <Link
               href="/book-meeting"
               className={`px-4.5 py-1.5 rounded-full border transition-all duration-300 text-[10px] uppercase tracking-widest font-extrabold ${
-                isScrolled
+                useDarkHeaderStyle
                   ? "border-cream-300 bg-white text-[#211E1A] hover:bg-cream-100 hover:shadow-md hover:-translate-y-0.5"
                   : "border-white/15 bg-white text-black hover:bg-white/90 hover:shadow-lg hover:-translate-y-0.5"
               }`}
@@ -123,7 +126,7 @@ export default function Header() {
           <Link
             href="/book-meeting"
             className={`md:hidden p-2 transition-colors duration-300 flex items-center justify-center z-10 ${
-              isScrolled ? "text-[#211E1A]" : "text-white"
+              useDarkHeaderStyle ? "text-[#211E1A]" : "text-white"
             }`}
             aria-label="Book a meeting"
           >
