@@ -43,6 +43,10 @@ export default function FeaturedGrid() {
   const isAnimating = useRef(false);
   const isResetting = useRef(false);
 
+  // Swipe gesture refs
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
   const prev = () => {
     if (isAnimating.current || isResetting.current) return;
     setActiveIndex((prevIndex) => prevIndex - 1);
@@ -51,6 +55,34 @@ export default function FeaturedGrid() {
   const next = () => {
     if (isAnimating.current || isResetting.current) return;
     setActiveIndex((prevIndex) => prevIndex + 1);
+  };
+
+  // Touch handlers for mobile swiping
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const diffX = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50; // requires at least 50px drag to trigger page change
+
+    if (Math.abs(diffX) > minSwipeDistance) {
+      if (diffX > 0) {
+        next(); // Dragged left -> show next
+      } else {
+        prev(); // Dragged right -> show prev
+      }
+    }
+
+    // Reset touch variables
+    touchStartX.current = null;
+    touchEndX.current = null;
   };
 
   // Synchronize track sliding and morph transitions using GSAP
@@ -62,11 +94,10 @@ export default function FeaturedGrid() {
     const gap = 20; // gap-5 is 20px
     const offset = -activeIndex * (cardWidth + gap);
 
-    // If we are currently resetting the loop index, apply styles instantly and skip animation
+    // If resetting index, apply styles instantly and bypass re-animation loop
     if (isResetting.current) {
       isResetting.current = false;
       
-      // Set instant card states matching the current index
       tripledProperties.forEach((_, idx) => {
         const card = cardRefs.current[idx];
         if (!card) return;
@@ -74,9 +105,9 @@ export default function FeaturedGrid() {
         if (idx === activeIndex) {
           gsap.set(card, { scale: 1, opacity: 1, filter: "blur(0px)", pointerEvents: "auto" });
         } else if (idx === activeIndex + 1) {
-          gsap.set(card, { scale: 0.96, opacity: 0.35, filter: "blur(2px)", pointerEvents: "none" });
+          gsap.set(card, { scale: 0.96, opacity: 0.35, filter: "blur(2.5px)", pointerEvents: "none" });
         } else if (idx === activeIndex + 2) {
-          gsap.set(card, { scale: 0.92, opacity: 0.15, filter: "blur(4px)", pointerEvents: "none" });
+          gsap.set(card, { scale: 0.92, opacity: 0.15, filter: "blur(5px)", pointerEvents: "none" });
         } else {
           gsap.set(card, { scale: 0.88, opacity: 0, filter: "blur(8px)", pointerEvents: "none" });
         }
@@ -99,14 +130,53 @@ export default function FeaturedGrid() {
         if (activeIndex >= baseCount * 2) {
           const resetIndex = activeIndex - baseCount;
           isResetting.current = true;
+          
+          // Move track instantly
           gsap.set(track, { x: -resetIndex * (cardWidth + gap) });
+          
+          // Instantly sync card styles for new target index to prevent 1-frame rendering flashes
+          tripledProperties.forEach((_, idx) => {
+            const card = cardRefs.current[idx];
+            if (!card) return;
+
+            if (idx === resetIndex) {
+              gsap.set(card, { scale: 1, opacity: 1, filter: "blur(0px)", pointerEvents: "auto" });
+            } else if (idx === resetIndex + 1) {
+              gsap.set(card, { scale: 0.96, opacity: 0.35, filter: "blur(2.5px)", pointerEvents: "none" });
+            } else if (idx === resetIndex + 2) {
+              gsap.set(card, { scale: 0.92, opacity: 0.15, filter: "blur(5px)", pointerEvents: "none" });
+            } else {
+              gsap.set(card, { scale: 0.88, opacity: 0, filter: "blur(8px)", pointerEvents: "none" });
+            }
+          });
+          
           setActiveIndex(resetIndex);
         }
-        // If activeIndex moves into the first set (<= 3), set back to middle set (7)
+        
+        // If activeIndex moves into the first set (< 4), set back to middle set (7)
         if (activeIndex < baseCount) {
           const resetIndex = activeIndex + baseCount;
           isResetting.current = true;
+          
+          // Move track instantly
           gsap.set(track, { x: -resetIndex * (cardWidth + gap) });
+          
+          // Instantly sync card styles for new target index to prevent 1-frame rendering flashes
+          tripledProperties.forEach((_, idx) => {
+            const card = cardRefs.current[idx];
+            if (!card) return;
+
+            if (idx === resetIndex) {
+              gsap.set(card, { scale: 1, opacity: 1, filter: "blur(0px)", pointerEvents: "auto" });
+            } else if (idx === resetIndex + 1) {
+              gsap.set(card, { scale: 0.96, opacity: 0.35, filter: "blur(2.5px)", pointerEvents: "none" });
+            } else if (idx === resetIndex + 2) {
+              gsap.set(card, { scale: 0.92, opacity: 0.15, filter: "blur(5px)", pointerEvents: "none" });
+            } else {
+              gsap.set(card, { scale: 0.88, opacity: 0, filter: "blur(8px)", pointerEvents: "none" });
+            }
+          });
+          
           setActiveIndex(resetIndex);
         }
       },
@@ -259,7 +329,12 @@ export default function FeaturedGrid() {
           </div>
 
           {/* ───── RIGHT PROPERTY CAROUSEL ───── */}
-          <div className="flex-1 overflow-hidden h-[420px]">
+          <div 
+            className="flex-1 overflow-hidden h-[420px] touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div
               ref={trackRef}
               className="flex gap-5 h-full"
