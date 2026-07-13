@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, MapPin } from "lucide-react";
 import { PROPERTIES } from "@/lib/data/properties";
 import { formatBDTWord } from "@/lib/utils/formatCurrency";
+import gsap from "gsap";
 import {
   Avatar,
   AvatarFallback,
@@ -22,15 +23,93 @@ const AVATARS = [
 
 export default function FeaturedGrid() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const total = PROPERTIES.length;
 
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const prev = useCallback(() => {
+    setDirection("prev");
     setActiveIndex((i) => (i - 1 + total) % total);
   }, [total]);
 
   const next = useCallback(() => {
+    setDirection("next");
     setActiveIndex((i) => (i + 1) % total);
   }, [total]);
+
+  // Trigger GSAP transition on navigation
+  useEffect(() => {
+    const activeCard = cardsRef.current[0];
+    const secondCard = cardsRef.current[1];
+    const thirdCard = cardsRef.current[2];
+
+    const slideX = direction === "next" ? 50 : -50;
+    const secondSlideX = direction === "next" ? -25 : 25;
+
+    // Clean up active animations to prevent overlaps
+    if (activeCard) gsap.killTweensOf(activeCard);
+    if (secondCard) gsap.killTweensOf(secondCard);
+    if (thirdCard) gsap.killTweensOf(thirdCard);
+
+    if (activeCard) {
+      gsap.fromTo(
+        activeCard,
+        { 
+          x: slideX, 
+          scale: 0.94, 
+          opacity: 0.4,
+          filter: "blur(6px)"
+        },
+        { 
+          x: 0, 
+          scale: 1, 
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.8, 
+          ease: "power3.out"
+        }
+      );
+    }
+
+    if (secondCard) {
+      gsap.fromTo(
+        secondCard,
+        { 
+          x: secondSlideX, 
+          scale: 1.04, 
+          opacity: 0.75,
+          filter: "blur(0px)"
+        },
+        { 
+          x: 0, 
+          scale: 1, 
+          opacity: 0.35,
+          filter: "blur(1.5px)",
+          duration: 0.8, 
+          ease: "power3.out"
+        }
+      );
+    }
+
+    if (thirdCard) {
+      gsap.fromTo(
+        thirdCard,
+        { 
+          scale: 1.03, 
+          opacity: 0.4,
+          filter: "blur(1.5px)"
+        },
+        { 
+          scale: 1, 
+          opacity: 0.2,
+          filter: "blur(2.5px)",
+          duration: 0.8, 
+          ease: "power3.out"
+        }
+      );
+    }
+  }, [activeIndex, direction]);
 
   // Always render 3 slots: active, second (semi-blurred), third (most blurred)
   const visibleIndices = [
@@ -145,7 +224,10 @@ export default function FeaturedGrid() {
                 return (
                   <div
                     key={`${propIdx}-${slotIdx}`}
-                    className={`flex-shrink-0 h-full transition-all duration-500 ease-in-out ${
+                    ref={(el) => {
+                      cardsRef.current[slotIdx] = el;
+                    }}
+                    className={`flex-shrink-0 h-full ${
                       isActive
                         ? "w-full md:w-[52%] opacity-100"
                         : isSecond
