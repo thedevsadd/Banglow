@@ -28,7 +28,27 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   const [imageLoading, setImageLoading] = useState(false);
   const [activeLoaded, setActiveLoaded] = useState(false);
   
-  // Removed Floorplan modal state
+  // Lightbox modal state for architectural visual detail popup
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  
+  // Dynamically resolve ART-1 to ART-6 images paths based on the gallery folder path
+  const getArtImageUrls = () => {
+    if (!property.gallery || property.gallery.length === 0) return [];
+    const firstUrl = property.gallery[0];
+    const lastSlashIndex = firstUrl.lastIndexOf("/");
+    const folderPath = firstUrl.substring(0, lastSlashIndex + 1);
+    
+    return [
+      `${folderPath}ART-1.jpeg`,
+      `${folderPath}ART-2.jpeg`,
+      `${folderPath}ART-3.jpeg`,
+      `${folderPath}ART-4.jpeg`,
+      `${folderPath}ART-5.jpeg`,
+      `${folderPath}ART-6.jpeg`,
+    ];
+  };
+
+  const artImages = getArtImageUrls();
   
   // Interest form state
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
@@ -206,17 +226,20 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Architectural Visuals</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                  {property.gallery.map((imgUrl, idx) => (
-                    <div
+                  {artImages.map((imgUrl, idx) => (
+                    <button
                       key={idx}
-                      className="aspect-video w-full bg-cream-200 border border-cream-300 rounded-sm overflow-hidden relative group shadow-sm"
+                      onClick={() => setLightboxImage(imgUrl)}
+                      type="button"
+                      className="aspect-video w-full bg-cream-200 border border-cream-300 rounded-sm overflow-hidden relative group shadow-sm cursor-zoom-in text-left focus:outline-none focus:ring-1 focus:ring-primary/30"
                     >
                       <img
                         src={imgUrl}
-                        alt={`Architectural Perspective ${idx + 1}`}
+                        alt={`Architectural Drawing ${idx + 1}`}
                         className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-103"
                       />
-                    </div>
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+                    </button>
                   ))}
                 </div>
               </div>
@@ -425,7 +448,38 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
         </div>
       </main>
 
-      {/* Removed Lightbox Floorplan viewer */}
+      {/* Lightbox Architectural Image Viewer */}
+      {lightboxImage !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-background/95 flex items-center justify-center p-6 backdrop-blur-md cursor-zoom-out"
+          onClick={() => setLightboxImage(null)}
+        >
+          <div
+            className="relative bg-cream-100 border border-cream-300 p-2 max-w-4xl w-full rounded-sm max-h-[85vh] overflow-hidden flex flex-col justify-between shadow-2xl cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative aspect-video w-full bg-background flex items-center justify-center rounded-sm overflow-hidden">
+              <img
+                src={lightboxImage}
+                alt="Architectural Visual Enlarge"
+                className="max-h-[70vh] max-w-full object-contain"
+              />
+            </div>
+            
+            <div className="flex justify-between items-center p-4 border-t border-cream-300">
+              <h4 className="font-serif text-sm font-bold text-foreground">
+                Architectural Detail View
+              </h4>
+              <button
+                onClick={() => setLightboxImage(null)}
+                className="px-4 py-2 border border-cream-300 text-foreground hover:text-primary hover:border-primary text-[10px] uppercase tracking-widest font-bold transition-colors cursor-pointer bg-background"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
