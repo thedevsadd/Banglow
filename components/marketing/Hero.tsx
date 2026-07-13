@@ -111,14 +111,14 @@ export default function Hero() {
           ref={searchWidgetRef}
           className="w-full flex justify-center pb-16 z-20"
         >
-          <div className="w-full max-w-3xl p-1 bg-white/15 border border-white/25 rounded-full shadow-lg backdrop-blur-md relative px-3">
-            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-center gap-2">
+          <div className="w-full max-w-3xl p-3 sm:p-1 bg-white/15 border border-white/25 rounded-2xl sm:rounded-full shadow-lg backdrop-blur-md relative px-4 sm:px-3">
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-2">
               
               {/* Select Area - Custom Dropdown Pill */}
               <div 
                 ref={areaRef}
                 onClick={() => setIsAreaOpen(!isAreaOpen)}
-                className="w-full sm:flex-1 flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group"
+                className="w-full sm:flex-1 flex items-center gap-3 px-3 sm:px-4.5 py-2 sm:py-1.5 hover:bg-white/10 rounded-xl sm:rounded-full transition-colors cursor-pointer relative group border-b border-white/10 sm:border-b-0 pb-3 sm:pb-1.5"
               >
                 <MapPin className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
@@ -129,7 +129,7 @@ export default function Hero() {
                     {area || "All Locations"}
                   </span>
                 </div>
-                <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                <ChevronDown className="absolute right-3 sm:right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
                 
                 {/* Custom Area Dropdown List */}
                 {isAreaOpen && (
@@ -167,7 +167,7 @@ export default function Hero() {
               <div 
                 ref={statusRef}
                 onClick={() => setIsStatusOpen(!isStatusOpen)}
-                className="w-full sm:w-[35%] flex items-center gap-3 px-4.5 py-1.5 hover:bg-white/10 rounded-full transition-colors cursor-pointer relative group"
+                className="w-full sm:w-[35%] flex items-center gap-3 px-3 sm:px-4.5 py-2 sm:py-1.5 hover:bg-white/10 rounded-xl sm:rounded-full transition-colors cursor-pointer relative group border-b border-white/10 sm:border-b-0 pb-3 sm:pb-1.5"
               >
                 <Building className="text-primary flex-shrink-0" size={16} />
                 <div className="flex-grow text-left">
@@ -178,7 +178,7 @@ export default function Hero() {
                     {status === "ongoing" ? "Ongoing Development" : status === "upcoming" ? "Upcoming Release" : "All Statuses"}
                   </span>
                 </div>
-                <ChevronDown className="absolute right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
+                <ChevronDown className="absolute right-3 sm:right-5 text-primary pointer-events-none group-hover:translate-y-0.5 transition-transform" size={14} />
                 
                 {/* Custom Status Dropdown List */}
                 {isStatusOpen && (
@@ -225,7 +225,7 @@ export default function Hero() {
               <div className="w-full sm:w-auto p-1 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-5 py-2 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto px-5 py-3 sm:py-2 bg-primary text-cream-100 font-bold uppercase tracking-wider text-xs rounded-xl sm:rounded-full hover:bg-terracotta-600 transition-colors flex items-center justify-center gap-1.5 group whitespace-nowrap cursor-pointer shadow-xs"
                 >
                   <Search size={12} />
                   Find Residencies
