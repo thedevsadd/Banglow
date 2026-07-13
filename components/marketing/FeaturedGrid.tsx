@@ -13,6 +13,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar";
 
+// Real avatar photos from pravatar — deterministic seeds
 const AVATARS = [
   { src: "https://i.pravatar.cc/48?img=47", fallback: "RA" },
   { src: "https://i.pravatar.cc/48?img=32", fallback: "SM" },
@@ -23,100 +24,84 @@ const AVATARS = [
 
 export default function FeaturedGrid() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState<"next" | "prev">("next");
   const total = PROPERTIES.length;
 
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const prev = useCallback(() => {
-    setDirection("prev");
     setActiveIndex((i) => (i - 1 + total) % total);
   }, [total]);
 
   const next = useCallback(() => {
-    setDirection("next");
     setActiveIndex((i) => (i + 1) % total);
   }, [total]);
 
-  // Trigger GSAP transition on navigation
+  // Synchronize layout translations and morph transitions using GSAP
   useEffect(() => {
-    const activeCard = cardsRef.current[0];
-    const secondCard = cardsRef.current[1];
-    const thirdCard = cardsRef.current[2];
+    const track = trackRef.current;
+    if (!track) return;
 
-    const slideX = direction === "next" ? 50 : -50;
-    const secondSlideX = direction === "next" ? -25 : 25;
+    const cardWidth = 360; // Fixed card width
+    const gap = 20; // gap-5 is 20px
+    const offset = -activeIndex * (cardWidth + gap);
 
-    // Clean up active animations to prevent overlaps
-    if (activeCard) gsap.killTweensOf(activeCard);
-    if (secondCard) gsap.killTweensOf(secondCard);
-    if (thirdCard) gsap.killTweensOf(thirdCard);
+    // Slide the track
+    gsap.to(track, {
+      x: offset,
+      duration: 0.85,
+      ease: "power4.out",
+    });
 
-    if (activeCard) {
-      gsap.fromTo(
-        activeCard,
-        { 
-          x: slideX, 
-          scale: 0.94, 
-          opacity: 0.4,
-          filter: "blur(6px)"
-        },
-        { 
-          x: 0, 
-          scale: 1, 
+    // Morph individual card styles based on proximity to activeIndex
+    PROPERTIES.forEach((_, idx) => {
+      const card = cardRefs.current[idx];
+      if (!card) return;
+
+      // We handle looping boundaries for visibility mapping
+      if (idx === activeIndex) {
+        // Active card
+        gsap.to(card, {
+          scale: 1,
           opacity: 1,
           filter: "blur(0px)",
-          duration: 0.8, 
-          ease: "power3.out"
-        }
-      );
-    }
-
-    if (secondCard) {
-      gsap.fromTo(
-        secondCard,
-        { 
-          x: secondSlideX, 
-          scale: 1.04, 
-          opacity: 0.75,
-          filter: "blur(0px)"
-        },
-        { 
-          x: 0, 
-          scale: 1, 
+          pointerEvents: "auto",
+          duration: 0.85,
+          ease: "power4.out",
+        });
+      } else if (idx === (activeIndex + 1) % total) {
+        // Second card (semi-blurred)
+        gsap.to(card, {
+          scale: 0.96,
           opacity: 0.35,
-          filter: "blur(1.5px)",
-          duration: 0.8, 
-          ease: "power3.out"
-        }
-      );
-    }
-
-    if (thirdCard) {
-      gsap.fromTo(
-        thirdCard,
-        { 
-          scale: 1.03, 
-          opacity: 0.4,
-          filter: "blur(1.5px)"
-        },
-        { 
-          scale: 1, 
-          opacity: 0.2,
-          filter: "blur(2.5px)",
-          duration: 0.8, 
-          ease: "power3.out"
-        }
-      );
-    }
-  }, [activeIndex, direction]);
-
-  // Always render 3 slots: active, second (semi-blurred), third (most blurred)
-  const visibleIndices = [
-    activeIndex % total,
-    (activeIndex + 1) % total,
-    (activeIndex + 2) % total,
-  ];
+          filter: "blur(2px)",
+          pointerEvents: "none",
+          duration: 0.85,
+          ease: "power4.out",
+        });
+      } else if (idx === (activeIndex + 2) % total) {
+        // Third card (blurred)
+        gsap.to(card, {
+          scale: 0.92,
+          opacity: 0.15,
+          filter: "blur(4px)",
+          pointerEvents: "none",
+          duration: 0.85,
+          ease: "power4.out",
+        });
+      } else {
+        // Fully hidden / far-out cards
+        gsap.to(card, {
+          scale: 0.88,
+          opacity: 0,
+          filter: "blur(8px)",
+          pointerEvents: "none",
+          duration: 0.85,
+          ease: "power4.out",
+        });
+      }
+    });
+  }, [activeIndex, total]);
 
   return (
     <section className="bg-background py-20 relative overflow-hidden">
@@ -156,10 +141,10 @@ export default function FeaturedGrid() {
         </div>
 
         {/* Two Panel Layout */}
-        <div className="flex flex-col lg:flex-row gap-6 items-stretch" style={{ height: "420px" }}>
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch">
 
           {/* ───── LEFT TRUST PANEL ───── */}
-          <div className="w-full lg:w-[240px] flex-shrink-0 bg-[#211E1A] rounded-sm flex flex-col justify-between relative overflow-hidden p-7">
+          <div className="w-full lg:w-[240px] h-[240px] flex-shrink-0 bg-[#211E1A] rounded-sm flex flex-col justify-between relative overflow-hidden p-5 z-10">
             {/* Grain texture */}
             <div
               className="absolute inset-0 opacity-[0.035] pointer-events-none"
@@ -170,12 +155,12 @@ export default function FeaturedGrid() {
             />
 
             <div className="relative z-10">
-              <span className="text-[8px] uppercase tracking-[0.35em] text-white/35 font-extrabold mb-7 block">
+              <span className="text-[8px] uppercase tracking-[0.35em] text-white/35 font-extrabold mb-4 block">
                 Trusted Nationwide
               </span>
 
-              {/* Avatar Stack */}
-              <AvatarGroup className="mb-5">
+              {/* Real Photo Avatar Stack */}
+              <AvatarGroup className="mb-4">
                 {AVATARS.map((av, i) => (
                   <Avatar
                     key={i}
@@ -190,12 +175,12 @@ export default function FeaturedGrid() {
               </AvatarGroup>
 
               {/* Trust Number */}
-              <div className="mb-2">
-                <span className="font-space-grotesk text-[38px] font-extrabold text-white tracking-tight leading-none">
+              <div className="mb-1">
+                <span className="font-space-grotesk text-[34px] font-extrabold text-white tracking-tight leading-none">
                   150k+
                 </span>
               </div>
-              <p className="text-white/45 text-[11px] font-light leading-relaxed max-w-[170px]">
+              <p className="text-white/45 text-[10px] font-light leading-relaxed max-w-[180px]">
                 Families across Dhaka trust Banglow to deliver their signature home.
               </p>
             </div>
@@ -213,84 +198,69 @@ export default function FeaturedGrid() {
           </div>
 
           {/* ───── RIGHT PROPERTY CAROUSEL ───── */}
-          <div className="flex-1 overflow-hidden">
-            <div className="flex gap-4 h-full">
-              {visibleIndices.map((propIdx, slotIdx) => {
-                const property = PROPERTIES[propIdx];
-                const isActive = slotIdx === 0;
-                const isSecond = slotIdx === 1;
-                const isThird = slotIdx === 2;
-
+          <div className="flex-1 overflow-hidden h-[240px]">
+            <div
+              ref={trackRef}
+              className="flex gap-5 h-full"
+              style={{ width: "max-content" }}
+            >
+              {PROPERTIES.map((property, idx) => {
                 return (
                   <div
-                    key={`${propIdx}-${slotIdx}`}
+                    key={property.id}
                     ref={(el) => {
-                      cardsRef.current[slotIdx] = el;
+                      cardRefs.current[idx] = el;
                     }}
-                    className={`flex-shrink-0 h-full ${
-                      isActive
-                        ? "w-full md:w-[52%] opacity-100"
-                        : isSecond
-                        ? "hidden md:block md:w-[34%] opacity-35 blur-[1.5px] pointer-events-none select-none"
-                        : "hidden xl:block xl:w-[22%] opacity-20 blur-[2.5px] pointer-events-none select-none"
-                    }`}
+                    className="w-[360px] h-full flex-shrink-0 relative rounded-sm overflow-hidden bg-cream-200"
+                    style={{ transformOrigin: "center left" }}
                   >
                     <Link
-                      href={isActive ? `/properties/${property.slug}` : "#"}
-                      tabIndex={isActive ? 0 : -1}
-                      className={`group block h-full ${!isActive ? "cursor-default" : ""}`}
+                      href={`/properties/${property.slug}`}
+                      className="group block h-full w-full"
                     >
-                      {/* Full-bleed image card — image fills entire height */}
-                      <div className="relative w-full h-full rounded-sm overflow-hidden bg-cream-200">
-                        
-                        {/* Image — fills 100% */}
-                        <img
-                          src={property.heroImage}
-                          alt={property.name}
-                          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ${
-                            isActive ? "group-hover:scale-105" : ""
+                      {/* Image — fills 100% */}
+                      <img
+                        src={property.heroImage}
+                        alt={property.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+
+                      {/* Gradient overlay at bottom for text legibility */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+
+                      {/* Status badge — top left */}
+                      <div className="absolute top-3 left-3 z-10">
+                        <span
+                          className={`text-[8px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-sm border backdrop-blur-md ${
+                            property.status === "ongoing"
+                              ? "bg-white/15 border-white/20 text-white"
+                              : "bg-white/80 border-white/30 text-foreground"
                           }`}
-                        />
+                        >
+                          {property.status}
+                        </span>
+                      </div>
 
-                        {/* Gradient overlay at bottom for text legibility */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-
-                        {/* Status badge — top left */}
-                        <div className="absolute top-3 left-3 z-10">
-                          <span
-                            className={`text-[8px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-sm border backdrop-blur-md ${
-                              property.status === "ongoing"
-                                ? "bg-white/15 border-white/20 text-white"
-                                : "bg-white/80 border-white/30 text-foreground"
-                            }`}
-                          >
-                            {property.status}
-                          </span>
+                      {/* Bottom overlay: property info */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+                        <div className="flex items-center gap-1 text-white/60 text-[9px] mb-1">
+                          <MapPin size={9} />
+                          <span>{property.area}, Dhaka</span>
                         </div>
-
-                        {/* Bottom overlay: property info */}
-                        <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-                          <div className="flex items-center gap-1 text-white/60 text-[9px] mb-1">
-                            <MapPin size={9} />
-                            <span>{property.area}, Dhaka</span>
-                          </div>
-                          <h3 className="font-serif text-lg font-bold text-white leading-tight mb-0.5">
-                            {property.name}
-                          </h3>
-                          <p className="text-white/60 text-[10px] font-light line-clamp-1 leading-relaxed mb-3">
-                            {property.tagline}
-                          </p>
-                          {/* Price tag inline with "View" link */}
-                          <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-bold text-white/80 uppercase tracking-widest">
-                              From {formatBDTWord(property.pricing.totalPriceMin)}
-                            </span>
-                            {isActive && (
-                              <span className="text-[8px] font-extrabold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors flex items-center gap-1">
-                                View →
-                              </span>
-                            )}
-                          </div>
+                        <h3 className="font-serif text-lg font-bold text-white leading-tight mb-0.5">
+                          {property.name}
+                        </h3>
+                        <p className="text-white/60 text-[10px] font-light line-clamp-1 leading-relaxed mb-3">
+                          {property.tagline}
+                        </p>
+                        {/* Price tag inline with "View" link */}
+                        <div className="flex items-center justify-between">
+                          <span className="text-[9px] font-bold text-white/80 uppercase tracking-widest">
+                            From {formatBDTWord(property.pricing.totalPriceMin)}
+                          </span>
+                          <span className="text-[8px] font-extrabold uppercase tracking-widest text-white/50 group-hover:text-white transition-colors flex items-center gap-1">
+                            View →
+                          </span>
                         </div>
                       </div>
                     </Link>
