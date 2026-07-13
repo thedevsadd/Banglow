@@ -92,7 +92,7 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
   };
 
-  const downloadIcsFile = () => {
+  const generateIcsDataUri = () => {
     const { start, end } = getCalendarDates();
     
     const icsLines = [
@@ -109,16 +109,11 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
       "END:VCALENDAR"
     ];
 
-    const icsContent = icsLines.join("\r\n");
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `site-visit-${meeting.serialNumber}.ics`;
-    link.click();
+    return `data:text/calendar;charset=utf-8,${encodeURIComponent(icsLines.join("\r\n"))}`;
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-cream-200 border border-cream-300 p-8 rounded-sm text-center relative overflow-hidden shadow-sm">
+    <div className="max-w-md mx-auto bg-cream-200 border border-cream-300 p-6 rounded-sm text-center relative overflow-hidden shadow-sm">
       
       {/* Background radial accent */}
       <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
@@ -137,7 +132,7 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
       </p>
 
       {/* Serial Card */}
-      <div className="bg-background border border-cream-300 p-4 rounded-sm flex items-center justify-between mb-8 max-w-md mx-auto text-left">
+      <div className="bg-background border border-cream-300 p-4 rounded-sm flex items-center justify-between mb-6 w-full max-w-[360px] mx-auto text-left">
         <div>
           <span className="text-[10px] text-cream-500 uppercase tracking-widest font-bold block mb-0.5">
             Your tracking Serial
@@ -157,10 +152,12 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
       </div>
 
       {/* Details Box */}
-      <div className="bg-background/40 border border-cream-300/80 p-5 rounded-sm text-left text-xs text-cream-500 max-w-md mx-auto flex flex-col gap-3 mb-8">
+      <div className="bg-background/40 border border-cream-300/80 p-5 rounded-sm text-left text-xs text-cream-500 w-full max-w-[360px] mx-auto flex flex-col gap-3 mb-6">
         <div className="flex justify-between border-b border-cream-300/40 pb-2">
           <span>Project Address:</span>
-          <span className="text-foreground font-semibold">{property.fullAddress}</span>
+          <span className="text-foreground font-semibold max-w-[200px] text-right truncate" title={property.fullAddress}>
+            {property.fullAddress}
+          </span>
         </div>
         <div className="flex justify-between border-b border-cream-300/40 pb-2">
           <span>Walkthrough Date:</span>
@@ -177,7 +174,7 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col gap-3 max-w-md mx-auto">
+      <div className="flex flex-col gap-3 w-full max-w-[360px] mx-auto">
         <div className="relative">
           <button
             onClick={() => setShowCalendarMenu(!showCalendarMenu)}
@@ -198,16 +195,14 @@ function ConfirmedPageContent({ slug }: { slug: string }) {
               >
                 Sync with Google Calendar
               </a>
-              <button
-                onClick={() => {
-                  downloadIcsFile();
-                  setShowCalendarMenu(false);
-                }}
-                type="button"
+              <a
+                href={generateIcsDataUri()}
+                download={`site-visit-${meeting.serialNumber}.ics`}
+                onClick={() => setShowCalendarMenu(false)}
                 className="px-4 py-3 hover:bg-cream-200 text-foreground hover:text-primary text-left cursor-pointer"
               >
                 Download iCal (.ics) file
-              </button>
+              </a>
             </div>
           )}
         </div>
