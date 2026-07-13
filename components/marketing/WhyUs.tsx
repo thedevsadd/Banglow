@@ -28,7 +28,10 @@ export default function WhyUs() {
   ];
 
   return (
-    <section className="bg-background py-24 border-t border-cream-300">
+    <section className="bg-background py-24 border-t border-cream-300 relative">
+      {/* Subtle top edge gradient fade for visual depth */}
+      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/[0.05] to-transparent pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
