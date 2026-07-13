@@ -268,7 +268,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
               {/* Architectural Showcase Gallery */}
               <div>
                 <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Architectural Visuals</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6">
                   {artImages.map((imgUrl, idx) => (
                     <button
                       key={idx}
