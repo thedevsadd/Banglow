@@ -249,8 +249,8 @@ export default function FeaturedGrid() {
             </h2>
           </div>
 
-          {/* Arrow Navigation */}
-          <div className="flex items-center gap-3">
+          {/* Arrow Navigation (Desktop) */}
+          <div className="hidden md:flex items-center gap-3">
             <button
               onClick={prev}
               aria-label="Previous property"
@@ -407,6 +407,28 @@ export default function FeaturedGrid() {
           </div>
 
         </div>
+
+        {/* Arrow Navigation (Mobile) */}
+        <div className="flex md:hidden items-center justify-center gap-4 mt-8 w-full">
+          <button
+            onClick={prev}
+            aria-label="Previous property"
+            className="w-10 h-10 rounded-full border border-cream-300 bg-background hover:bg-[#211E1A] hover:border-[#211E1A] hover:text-white text-foreground transition-all duration-200 flex items-center justify-center cursor-pointer"
+          >
+            <ArrowLeft size={16} />
+          </button>
+          <span className="text-[11px] text-cream-500 uppercase tracking-widest font-bold tabular-nums min-w-[50px] text-center">
+            {String(currentSlideNumber).padStart(2, "0")} / {String(baseCount).padStart(2, "0")}
+          </span>
+          <button
+            onClick={next}
+            aria-label="Next property"
+            className="w-10 h-10 rounded-full border border-cream-300 bg-background hover:bg-[#211E1A] hover:border-[#211E1A] hover:text-white text-foreground transition-all duration-200 flex items-center justify-center cursor-pointer"
+          >
+            <ArrowRight size={16} />
+          </button>
+        </div>
+
       </div>
     </section>
   );
