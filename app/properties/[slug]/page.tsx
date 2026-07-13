@@ -25,7 +25,8 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
 
   // Active image state
   const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [imageLoading, setImageLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [activeLoaded, setActiveLoaded] = useState(false);
   
   // Floorplan modal state
   const [activeFloorplan, setActiveFloorplan] = useState<number | null>(null);
@@ -34,9 +35,22 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Set loading true when image changes
+  // Set loading state with a delay to prevent flickering on cached assets
   useEffect(() => {
-    setImageLoading(true);
+    setActiveLoaded(false);
+    
+    const timer = setTimeout(() => {
+      setActiveLoaded((loaded) => {
+        if (!loaded) {
+          setImageLoading(true);
+        }
+        return loaded;
+      });
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [activeImageIdx]);
 
   const handleNextImage = () => {
@@ -119,21 +133,24 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                   
                   {/* Elegant Loading Spinner Overlay */}
                   {imageLoading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-cream-200/80 backdrop-blur-xs z-10">
+                    <div className="absolute inset-0 flex items-center justify-center bg-cream-200/85 backdrop-blur-xs z-10 transition-opacity duration-300">
                       <div className="w-8 h-8 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
                     </div>
                   )}
 
-                  <AnimatePresence initial={false} mode="popLayout">
+                  <AnimatePresence mode="wait">
                     <motion.img
                       key={activeImageIdx}
                       src={property.gallery[activeImageIdx] || property.heroImage}
                       alt={`${property.name} interior preview`}
-                      initial={{ opacity: 0, scale: 1.01 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.99 }}
-                      transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
-                      onLoad={() => setImageLoading(false)}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      onLoad={() => {
+                        setActiveLoaded(true);
+                        setImageLoading(false);
+                      }}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </AnimatePresence>
