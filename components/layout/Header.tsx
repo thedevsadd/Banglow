@@ -46,9 +46,23 @@ export default function Header() {
             : "bg-transparent py-3"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo - Text removed, size scaled, dynamically inverted when transparent */}
-          <Link href="/" className="flex items-center group">
+        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between relative w-full h-12 md:h-auto">
+          {/* Mobile Menu Button - Left on mobile */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`md:hidden p-2 focus:outline-none transition-colors duration-300 z-10 ${
+              isScrolled ? "text-[#211E1A]" : "text-white"
+            }`}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+          {/* Logo - Centered on mobile, Left on desktop */}
+          <Link 
+            href="/" 
+            className="flex items-center group transition-all duration-300 md:relative md:left-auto md:top-auto md:translate-x-0 md:translate-y-0 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
             <img 
               src="/Assets/Logo-Banglow.png" 
               alt="Banglow Logo" 
@@ -57,7 +71,7 @@ export default function Header() {
               }`} 
             />
           </Link>
-
+ 
           {/* Desktop Nav in a capsule container - dynamically colored */}
           <nav className={`hidden md:flex items-center gap-1 px-2 py-1 rounded-full border transition-all duration-300 ${
             isScrolled 
@@ -90,7 +104,7 @@ export default function Header() {
               );
             })}
           </nav>
-
+ 
           {/* Desktop Meeting Button - Slim capsule styled */}
           <div className="hidden md:flex items-center">
             <Link
@@ -105,14 +119,16 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-foreground hover:text-primary p-2 focus:outline-none"
-            aria-label="Toggle menu"
+          {/* Mobile Meeting Link Icon - Right on mobile */}
+          <Link
+            href="/book-meeting"
+            className={`md:hidden p-2 transition-colors duration-300 flex items-center justify-center z-10 ${
+              isScrolled ? "text-[#211E1A]" : "text-white"
+            }`}
+            aria-label="Book a meeting"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            <PhoneCall size={18} />
+          </Link>
         </div>
       </header>
 
