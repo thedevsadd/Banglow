@@ -28,8 +28,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
   const [imageLoading, setImageLoading] = useState(false);
   const [activeLoaded, setActiveLoaded] = useState(false);
   
-  // Floorplan modal state
-  const [activeFloorplan, setActiveFloorplan] = useState<number | null>(null);
+  // Removed Floorplan modal state
   
   // Interest form state
   const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "", message: `I am interested in ${property.name}. Please contact me.` });
@@ -203,31 +202,20 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
                 </p>
               </div>
 
-              {/* Floor Plans List */}
+              {/* Architectural Showcase Gallery */}
               <div>
-                <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Signature Unit Floorplans</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {property.floorPlans.map((fp, idx) => (
+                <h3 className="font-serif text-2xl font-bold text-foreground mb-6">Architectural Visuals</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  {property.gallery.map((imgUrl, idx) => (
                     <div
                       key={idx}
-                      onClick={() => setActiveFloorplan(idx)}
-                      className="p-4 bg-cream-200 border border-cream-300 hover:border-primary/20 rounded-sm cursor-pointer group transition-all shadow-sm"
+                      className="aspect-video w-full bg-cream-200 border border-cream-300 rounded-sm overflow-hidden relative group shadow-sm"
                     >
-                      <div className="aspect-video w-full bg-cream-100 border border-cream-300 overflow-hidden mb-3 relative flex items-center justify-center">
-                        <img
-                          src={fp.image}
-                          alt={fp.title}
-                          className="w-full h-full object-cover group-hover:scale-102 transition-transform"
-                        />
-                        <div className="absolute inset-0 bg-cream-200/40 group-hover:bg-cream-200/20 transition-colors flex items-center justify-center">
-                          <span className="text-xs uppercase tracking-widest text-primary border border-primary/40 px-3 py-1.5 rounded-sm bg-cream-100">
-                            Enlarge Layout
-                          </span>
-                        </div>
-                      </div>
-                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {fp.title}
-                      </h4>
+                      <img
+                        src={imgUrl}
+                        alt={`Architectural Perspective ${idx + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-103"
+                      />
                     </div>
                   ))}
                 </div>
@@ -437,38 +425,7 @@ export default function PropertyDetailPage({ params }: PropertyDetailPageProps) 
         </div>
       </main>
 
-      {/* Lightbox Floorplan viewer */}
-      {activeFloorplan !== null && (
-        <div
-          className="fixed inset-0 z-50 bg-background/90 flex items-center justify-center p-6 backdrop-blur-xs"
-          onClick={() => setActiveFloorplan(null)}
-        >
-          <div
-            className="relative bg-cream-100 border border-cream-300 p-2 max-w-4xl w-full rounded-sm max-h-[85vh] overflow-hidden flex flex-col justify-between shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative aspect-video w-full bg-background flex items-center justify-center rounded-sm">
-              <img
-                src={property.floorPlans[activeFloorplan].image}
-                alt={property.floorPlans[activeFloorplan].title}
-                className="max-h-[70vh] object-contain"
-              />
-            </div>
-            
-            <div className="flex justify-between items-center p-4 border-t border-cream-300">
-              <h4 className="font-serif text-lg font-bold text-foreground">
-                {property.floorPlans[activeFloorplan].title}
-              </h4>
-              <button
-                onClick={() => setActiveFloorplan(null)}
-                className="px-4 py-2 border border-cream-300 text-foreground hover:text-primary hover:border-primary text-xs uppercase tracking-widest font-bold transition-colors cursor-pointer bg-background"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Removed Lightbox Floorplan viewer */}
     </>
   );
 }
