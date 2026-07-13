@@ -32,25 +32,25 @@ export default function Home() {
             <h2 className="font-serif text-3xl md:text-5xl font-semibold text-foreground mb-6">
               Experience the Landmarks in Person
             </h2>
-            <p className="text-cream-500 font-light text-base md:text-lg mb-10 max-w-xl leading-relaxed">
+            <p className="text-cream-500 font-light text-base md:text-lg mb-10 max-w-xl leading-snug">
               Schedule a guided physical tour with our client managers. Tour the units, review structural blueprints, and align your custom floor options.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-md">
+            <div className="flex flex-col sm:flex-row gap-3.5 justify-center w-full max-w-sm">
               <Link
                 href="/properties"
-                className="px-8 py-4 bg-primary hover:bg-terracotta-600 text-cream-100 font-bold uppercase tracking-widest text-xs rounded-sm transition-all duration-300 flex items-center justify-center gap-2 group w-full cursor-pointer"
+                className="px-5 py-2.5 bg-primary hover:bg-terracotta-600 text-cream-100 font-bold uppercase tracking-widest text-xs rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 group w-full cursor-pointer"
               >
-                <Calendar size={14} />
-                Book Site Visit
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                <Calendar size={13} />
+                Book Visit
+                <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/track"
-                className="px-8 py-4 border border-cream-300 hover:border-primary/55 text-foreground font-bold uppercase tracking-widest text-xs rounded-sm transition-all duration-300 flex items-center justify-center gap-2 w-full bg-background"
+                className="px-5 py-2.5 border border-cream-300 hover:border-primary/55 text-foreground font-bold uppercase tracking-widest text-xs rounded-full transition-all duration-300 flex items-center justify-center gap-1.5 w-full bg-background"
               >
-                <UserCheck size={14} className="text-primary" />
-                Track My Bookings
+                <UserCheck size={13} className="text-primary" />
+                Track Bookings
               </Link>
             </div>
           </div>
