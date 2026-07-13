@@ -86,7 +86,7 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-6xl mx-auto px-6 h-full flex flex-col justify-between">
         
         {/* Left Aligned Text Block with responsive padding */}
-        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-6 lg:pl-16">
+        <div className="flex-grow flex flex-col justify-center items-start text-left pt-36 pb-8 max-w-3xl pl-0">
           <span className="text-xs uppercase tracking-[0.35em] text-primary font-extrabold mb-4">
             Banglow Real Estate
           </span>
