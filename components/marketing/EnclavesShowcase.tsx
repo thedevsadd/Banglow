@@ -140,6 +140,31 @@ export default function EnclavesShowcase() {
             {STAGES.map((stage, idx) => {
               const isActive = idx === activeIdx;
               const IconComp = stage.icon;
+              const isCurrentDark = STAGES[activeIdx].isDarkBg;
+
+              const titleColorClass = isActive
+                ? textClass
+                : isCurrentDark
+                  ? "text-white/35 group-hover:text-white"
+                  : "text-[#211E1A]/40 group-hover:text-[#211E1A]";
+
+              const numColorClass = isActive
+                ? textClass
+                : isCurrentDark
+                  ? "text-white/20 group-hover:text-white/60"
+                  : "text-[#211E1A]/25 group-hover:text-[#211E1A]/60";
+
+              const iconColorClass = isActive
+                ? textClass
+                : isCurrentDark
+                  ? "text-white/20 group-hover:text-white/60"
+                  : "text-[#211E1A]/25 group-hover:text-[#211E1A]/60";
+
+              const arrowColorClass = isActive
+                ? textClass
+                : isCurrentDark
+                  ? "text-white/20 group-hover:text-white"
+                  : "text-[#211E1A]/20 group-hover:text-[#211E1A]";
 
               return (
                 <div
@@ -149,26 +174,18 @@ export default function EnclavesShowcase() {
                 >
                   <div className="flex items-start gap-6 px-4 relative z-10">
                     {/* Number */}
-                    <span className={`font-space-grotesk text-xs font-extrabold tracking-widest transition-colors duration-500 ${
-                      isActive 
-                        ? textClass 
-                        : "text-cream-500 group-hover:text-primary"
-                    }`}>
+                    <span className={`font-space-grotesk text-xs font-extrabold tracking-widest transition-colors duration-500 ${numColorClass}`}>
                       {stage.num}
                     </span>
 
                     {/* Icon */}
-                    <div className={`mt-0.5 transition-colors duration-500 ${
-                      isActive ? textClass : "text-cream-300"
-                    }`}>
+                    <div className={`mt-0.5 transition-colors duration-500 ${iconColorClass}`}>
                       <IconComp size={18} />
                     </div>
 
                     {/* Title & Desc */}
                     <div className="flex-grow">
-                      <h3 className={`font-space-grotesk text-lg sm:text-xl font-bold mb-2 tracking-tight transition-colors duration-500 ${
-                        isActive ? textClass : "text-foreground/75 group-hover:text-primary"
-                      }`}>
+                      <h3 className={`font-space-grotesk text-lg sm:text-xl font-bold mb-2 tracking-tight transition-colors duration-500 ${titleColorClass}`}>
                         {stage.title}
                       </h3>
                       
@@ -187,11 +204,7 @@ export default function EnclavesShowcase() {
                     <div className="flex-shrink-0 self-center">
                       <ArrowRight
                         size={15}
-                        className={`transition-all duration-300 ${
-                          isActive 
-                            ? "translate-x-1 " + textClass 
-                            : "text-cream-300 group-hover:translate-x-1 group-hover:text-primary"
-                        }`}
+                        className={`transition-all duration-300 group-hover:translate-x-1 ${arrowColorClass}`}
                       />
                     </div>
                   </div>
