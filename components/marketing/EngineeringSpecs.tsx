@@ -36,29 +36,12 @@ export default function EngineeringSpecs() {
   const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    // Scroll trigger fade-in animations for cards using basic intersection observer and GSAP
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute("data-index"));
-            gsap.fromTo(
-              entry.target,
-              { y: 50, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.8, delay: index * 0.15, ease: "power2.out" }
-            );
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
+    // Staggered mount animation that runs safely on load
+    gsap.fromTo(
+      cardRefs.current.filter(Boolean),
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.85, stagger: 0.12, ease: "power2.out" }
     );
-
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const handleMouseEnter = (idx: number) => {
@@ -141,7 +124,7 @@ export default function EngineeringSpecs() {
                 data-index={idx}
                 onMouseEnter={() => handleMouseEnter(idx)}
                 onMouseLeave={() => handleMouseLeave(idx)}
-                className="group border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.04] p-8 rounded-sm flex flex-col justify-between transition-all duration-300 shadow-lg relative opacity-0"
+                className="group border border-white/10 hover:border-white/20 bg-white/[0.02] hover:bg-white/[0.04] p-8 rounded-sm flex flex-col justify-between transition-all duration-300 shadow-lg relative"
               >
                 {/* Top: Icon and Title */}
                 <div>
