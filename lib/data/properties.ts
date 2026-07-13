@@ -45,7 +45,7 @@ export interface Property {
   units: Unit[];
 }
 
-export const PROPERTIES: Property[] = [
+const RAW_PROPERTIES: Property[] = [
   {
     id: "prop-anindya",
     slug: "anindya",
@@ -351,3 +351,15 @@ export const PROPERTIES: Property[] = [
     ]
   }
 ];
+
+const BASE_ASSETS_URL = "https://raw.githubusercontent.com/thedevsadd/Banglow/assets-store/public";
+
+export const PROPERTIES: Property[] = RAW_PROPERTIES.map((prop) => ({
+  ...prop,
+  heroImage: prop.heroImage.startsWith("/Assets/") ? `${BASE_ASSETS_URL}${prop.heroImage}` : prop.heroImage,
+  gallery: prop.gallery.map((img) => img.startsWith("/Assets/") ? `${BASE_ASSETS_URL}${img}` : img),
+  floorPlans: prop.floorPlans.map((fp) => ({
+    ...fp,
+    image: fp.image.startsWith("/Assets/") ? `${BASE_ASSETS_URL}${fp.image}` : fp.image,
+  })),
+}));

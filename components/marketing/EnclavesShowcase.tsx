@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { ArrowRight, Box, Compass, Feather, Shield } from "lucide-react";
 import gsap from "gsap";
 
+const BASE_ASSETS_URL = "https://raw.githubusercontent.com/thedevsadd/Banglow/assets-store/public";
+
 const STAGES = [
   {
     id: "canopy",
@@ -14,7 +16,7 @@ const STAGES = [
     desc: "Perched at the highest elevations, our sky canopy decks merge private cigar lounges, water pools, and lush gardens into a tranquil rooftop sanctuary overlooking the city skyline.",
     bg: "#faf7f2", // Cream (Light)
     isDarkBg: false,
-    image: "/Assets/Belmonte (Gulshan)/Gulshan-cover.jpeg",
+    image: `${BASE_ASSETS_URL}/Assets/Belmonte (Gulshan)/Gulshan-cover.jpeg`,
     metric: "Elevated Sky Sanctuary",
   },
   {
@@ -26,7 +28,7 @@ const STAGES = [
     desc: "Residential spaces designed around 11-foot clear height ceilings, allowing light to cascade deep into the home. Screened by double-glazed low-E facades to reject tropical heat.",
     bg: "#f0eae0", // Muted Warm (Light)
     isDarkBg: false,
-    image: "/Assets/Anindya (Uttara)/uttara-cover.jpeg",
+    image: `${BASE_ASSETS_URL}/Assets/Anindya (Uttara)/uttara-cover.jpeg`,
     metric: "11.0' Clear Ceilings",
   },
   {
@@ -38,7 +40,7 @@ const STAGES = [
     desc: "A transition zone of absolute quiet. Our double-height ground lobbies open directly onto reflecting pools and waterfront boardwalks, shielding you from metropolitan noise.",
     bg: "#211e1a", // Deep Charcoal (Dark)
     isDarkBg: true,
-    image: "/Assets/Nilashri (Jalshiri)/Jalshiri-cover.jpeg",
+    image: `${BASE_ASSETS_URL}/Assets/Nilashri (Jalshiri)/Jalshiri-cover.jpeg`,
     metric: "-42dB Acoustic Isolation",
   },
   {
@@ -50,7 +52,7 @@ const STAGES = [
     desc: "Deep-soil concrete piling engineered to withstand seismic shifts. Integrated with underground parking, smart garages, and redundant structural vaults for lifetime safety.",
     bg: "#171513", // Matte Obsidian (Dark)
     isDarkBg: true,
-    image: "/Assets/Aronno (Purbachal)/Purbachal-cover.jpeg",
+    image: `${BASE_ASSETS_URL}/Assets/Aronno (Purbachal)/Purbachal-cover.jpeg`,
     metric: "Seismic Buffer Grade",
   },
 ];

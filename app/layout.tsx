@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     locale: "en_BD",
   },
   icons: {
-    icon: "/Assets/Favicon.png",
+    icon: "/favicon.png",
   },
 };
 

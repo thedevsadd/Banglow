@@ -78,7 +78,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-100 scale-102"
         style={{
-          backgroundImage: `url('/Assets/Hero-bg.jpeg')`,
+          backgroundImage: `url('https://raw.githubusercontent.com/thedevsadd/Banglow/assets-store/public/Assets/Hero-bg.jpeg')`,
         }}
       />
 
